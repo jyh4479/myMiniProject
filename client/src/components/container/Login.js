@@ -1,13 +1,17 @@
 import React from 'react'
 import {BasicButton, BasicText, ComponentBox, Row} from '../presentational'
+import apiService from '../../utils/API'
 import '../../styles/Login.scss'
 
 const Login = props => {
     let getInputId = React.createRef()
     let getInputPassword = React.createRef()
 
-    const signIn = e => {
+    const signIn = async (e) => {
         e.preventDefault()
+        const id = getInputId.current.value
+        const password = getInputPassword.current.value
+        await apiService.signIn(id, password)
         console.log(getInputId.current.value)
     }
 
