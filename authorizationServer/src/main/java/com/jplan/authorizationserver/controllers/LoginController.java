@@ -1,7 +1,9 @@
 package com.jplan.authorizationserver.controllers;
 
+import com.jplan.authorizationserver.services.JwtTokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +15,15 @@ public class LoginController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
     @GetMapping(value = "/get")
     public String testController() {
         logger.info("Run testController");
+
+        logger.info(jwtTokenProvider.createToken());
+
         return "Hello Login Server!";
     }
 
