@@ -1,28 +1,34 @@
 package com.jplan.authorizationserver.controllers;
 
 import com.jplan.authorizationserver.services.JwtTokenProvider;
+import com.jplan.authorizationserver.services.MemberAuthService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/test")
 public class LoginController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final MemberAuthService memberAuthService;
 
     @GetMapping(value = "/get")
-    public String testController() {
-        logger.info("Run testController");
+    public String testController(HttpServletResponse httpServletResponse) {
 
+        logger.info("Run testController");
         logger.info(jwtTokenProvider.createToken());
+
+        if (memberAuthService.memberCheck("ID", "PASSWORD")) {
+            jwtTokenProvider.createToken();
+        }
 
         return "Hello Login Server!";
     }
