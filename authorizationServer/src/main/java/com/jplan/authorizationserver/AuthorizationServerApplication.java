@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 //https://koogood.tistory.com/m/25?category=756037 --> JWT 생성 참고
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-//@SpringBootApplication
+//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication
 public class AuthorizationServerApplication {
 
     public static void main(String[] args) {
