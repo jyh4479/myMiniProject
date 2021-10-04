@@ -23,4 +23,10 @@ public class Member {
 
     @Column
     private String birth;
+
+    @Column
+    private String password;
+
+    @Column
+    private String membership;
 }
