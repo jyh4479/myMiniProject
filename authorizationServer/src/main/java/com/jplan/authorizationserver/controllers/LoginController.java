@@ -1,5 +1,6 @@
 package com.jplan.authorizationserver.controllers;
 
+import com.jplan.authorizationserver.dto.LoginInfo;
 import com.jplan.authorizationserver.services.JwtTokenProvider;
 import com.jplan.authorizationserver.services.MemberAuthService;
 import lombok.RequiredArgsConstructor;
@@ -20,20 +21,27 @@ public class LoginController {
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberAuthService memberAuthService;
 
-    @GetMapping(value = "/get")
-    public String testController(HttpServletResponse httpServletResponse) {
+    @PostMapping(value = "/get")
+    public String testController(@RequestBody LoginInfo loginInfo, HttpServletResponse httpServletResponse) {
 
         logger.info("Run testController");
-        logger.info(jwtTokenProvider.createToken());
 
-        if (memberAuthService.memberCheck("ID", "PASSWORD")) {
-            jwtTokenProvider.createToken();
+        String id = loginInfo.getId();
+        String password = loginInfo.getPassword();
+
+        /* body에 id와 password를 받아올것 (앞단에서 정보 받는것에 대한 예외처리를 하지만 백단에서도 처리하도록 함) */
+
+        /* decode logic & null logic 처리 */
+
+        //로그인 정보가 일치하는 경우 토큰 생성 후 레디스에 리프레쉬 토큰 저장 하고 엑세스 토큰 브라우져에 전달
+        if (memberAuthService.memberCheck(id, password)) {
+            return "로그인 성공"; //jwtTokenProvider.createToken();
         }
 
-        return "Hello Login Server!";
+        return "로그인 실패";
     }
 
-    @PostMapping(value = "/get")
+    @GetMapping(value = "/get")
     public String testControllerPost() {
         logger.info("Run testController2");
         return "This is post test";
