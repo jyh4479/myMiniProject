@@ -2,7 +2,7 @@ package com.jplan.authorizationserver.controllers;
 
 import com.jplan.authorizationserver.dto.LoginInfo;
 import com.jplan.authorizationserver.services.JwtTokenProvider;
-import com.jplan.authorizationserver.services.MemberAuthService;
+import com.jplan.authorizationserver.services.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class LoginController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final MemberAuthService memberAuthService;
+    private final MemberService memberService;
 
     @PostMapping(value = "/get")
     public String testController(@RequestBody LoginInfo loginInfo, HttpServletResponse httpServletResponse) {
@@ -34,8 +34,9 @@ public class LoginController {
         /* decode logic & null logic 처리 */
 
         //로그인 정보가 일치하는 경우 토큰 생성 후 레디스에 리프레쉬 토큰 저장 하고 엑세스 토큰 브라우져에 전달
-        if (memberAuthService.memberCheck(id, password)) {
-            httpServletResponse.setHeader("Token", jwtTokenProvider.createToken());
+        if (memberService.memberCheck(id, password)) {
+            String accessToken = jwtTokenProvider.createToken(id, password);
+//            httpServletResponse.setHeader("Token", jwtTokenProvider.createToken());
             logger.info("Login Success!");
             return "로그인 성공"; //jwtTokenProvider.createToken();
         }

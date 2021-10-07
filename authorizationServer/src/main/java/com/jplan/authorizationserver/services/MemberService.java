@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MemberAuthService {
+public class MemberService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final MemberRepository memberRepository;

@@ -15,9 +15,10 @@ public class JwtTokenProvider {
     private PrivateKey privateKey;
     private final long tokenValidTime = 60 * 30 * 1000L;
 
-    public String createToken() {
+    public String createToken(String id, String password) {
         Claims claims = Jwts.claims().setSubject("PAYLOAD!!");
-        claims.put("roles", "ROLES!!");
+        claims.put("id", id);
+        claims.put("id", id);
         Map<String, Object> header = new HashMap<>();
         header.put("alg", "HS256");
         header.put("typ", "JWT");
