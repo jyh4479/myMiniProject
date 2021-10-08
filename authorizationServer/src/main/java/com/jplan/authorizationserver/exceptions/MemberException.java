@@ -9,7 +9,7 @@ public class MemberException extends RuntimeException {
     private Integer code;
     private String msg;
 
-    public MemberException(Exception loginException) {
-        super(loginException);
+    public MemberException(Exception memberException) {
+        super(memberException);
     }
 }

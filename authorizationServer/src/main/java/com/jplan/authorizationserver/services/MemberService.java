@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -23,5 +25,13 @@ public class MemberService {
         /* 비밀번호 encode, decode 작업 추가 요망 */
 
         return member.getPassword().equals(password); //비밀번호가 불일치하는 경우
+    }
+
+    public Member loadOneMember(String id) {
+        return memberRepository.findById(id).orElseThrow(/* 사용자 정의 에러 */);
+    }
+
+    public List<Member> loadListMember() {
+        return memberRepository.findAll();
     }
 }
