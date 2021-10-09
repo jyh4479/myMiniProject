@@ -1,12 +1,16 @@
 package com.jplan.authorizationserver.controllers;
 
+import com.jplan.authorizationserver.dto.ErrorMessage;
 import com.jplan.authorizationserver.dto.LoginInfo;
+import com.jplan.authorizationserver.dto.ResponseMessage;
 import com.jplan.authorizationserver.entities.Member;
 import com.jplan.authorizationserver.services.JwtTokenProvider;
 import com.jplan.authorizationserver.services.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +26,9 @@ public class LoginController {
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberService memberService;
 
+    //https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html
     @PostMapping(value = "/get")
-    public String testController(@RequestBody LoginInfo loginInfo, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<?> testController(@RequestBody LoginInfo loginInfo, HttpServletRequest req, HttpServletResponse httpServletResponse) {
 
         logger.info("Run testController");
 
@@ -38,25 +43,29 @@ public class LoginController {
         if (memberService.memberCheck(id, password)) {
             try { //내부적 오류로 try와 catch를 통해 에러 찾기 --> 사용자 정의로 catch해서 모니터링하자
                 Member member = memberService.loadOneMember(id);
+                String accessToken = jwtTokenProvider.createToken(id, password);
+                //httpServletResponse.setHeader("Token", jwtTokenProvider.createToken());
+
+                logger.info("Login Success!");
+                ResponseMessage responseMessage = new ResponseMessage(200, "LOGIN::SUCCESS", member);
+                return new ResponseEntity<ResponseMessage>(responseMessage, HttpStatus.OK);
+
             } catch (Exception loginException) {
-                /* return 정의하기 */
+                logger.info("Please check server status!");
+                ErrorMessage errorMessage = new ErrorMessage(404, "SERVER::ERROR");
+                return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
             }
-
-            String accessToken = jwtTokenProvider.createToken(id, password);
-//            httpServletResponse.setHeader("Token", jwtTokenProvider.createToken());
-            logger.info("Login Success!");
-            return "로그인 성공"; //jwtTokenProvider.createToken();
         }
-
         //아이디가 없거나 비밀번호가 불일치하는 경우
         logger.info("Login Fail!");
-        return "로그인 실패";
+        ErrorMessage errorMessage = new ErrorMessage(404, "LOGIN::FAIL");
+        return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/get")
     public String testControllerPost() {
         logger.info("Run testController2");
-        return "This is post test";
+        return "This is get";
     }
 
     @PostMapping(value = "/post")
