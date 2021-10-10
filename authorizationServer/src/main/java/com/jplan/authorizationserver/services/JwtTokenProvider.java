@@ -18,7 +18,6 @@ public class JwtTokenProvider {
     public String createToken(String id, String password) {
         Claims claims = Jwts.claims().setSubject("PAYLOAD!!");
         claims.put("id", id);
-        claims.put("id", id);
         Map<String, Object> header = new HashMap<>();
         header.put("alg", "HS256");
         header.put("typ", "JWT");

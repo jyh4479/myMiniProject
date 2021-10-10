@@ -9,6 +9,7 @@ import com.jplan.authorizationserver.services.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,40 +27,43 @@ public class LoginController {
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberService memberService;
 
+    //https://great-developer.tistory.com/59
     //https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html
     @PostMapping(value = "/get")
-    public ResponseEntity<?> testController(@RequestBody LoginInfo loginInfo, HttpServletRequest req, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<?> testController(@RequestBody LoginInfo loginInfo, HttpServletResponse httpServletResponse) {
+        try{
+            logger.info("Run testController");
+            String id = loginInfo.getId();
+            String password = loginInfo.getPassword();
+            /* body에 id와 password를 받아올것 (앞단에서 정보 받는것에 대한 예외처리를 하지만 백단에서도 처리하도록 함) */
 
-        logger.info("Run testController");
+            /* decode logic & null logic 처리 */
 
-        String id = loginInfo.getId();
-        String password = loginInfo.getPassword();
+            //로그인 정보가 일치하는 경우 토큰 생성 후 레디스에 리프레쉬 토큰 저장 하고 엑세스 토큰 브라우져에 전달
 
-        /* body에 id와 password를 받아올것 (앞단에서 정보 받는것에 대한 예외처리를 하지만 백단에서도 처리하도록 함) */
-
-        /* decode logic & null logic 처리 */
-
-        //로그인 정보가 일치하는 경우 토큰 생성 후 레디스에 리프레쉬 토큰 저장 하고 엑세스 토큰 브라우져에 전달
-        if (memberService.memberCheck(id, password)) {
-            try { //내부적 오류로 try와 catch를 통해 에러 찾기 --> 사용자 정의로 catch해서 모니터링하자
+            if (memberService.memberCheck(id, password)){
                 Member member = memberService.loadOneMember(id);
-                String accessToken = jwtTokenProvider.createToken(id, password);
+
                 //httpServletResponse.setHeader("Token", jwtTokenProvider.createToken());
 
-                logger.info("Login Success!");
-                ResponseMessage responseMessage = new ResponseMessage(200, "LOGIN::SUCCESS", member);
-                return new ResponseEntity<ResponseMessage>(responseMessage, HttpStatus.OK);
+                HttpHeaders responseHeader = new HttpHeaders();
+                responseHeader.add("Access-Token", jwtTokenProvider.createToken(id, password));
 
-            } catch (Exception loginException) {
-                logger.info("Please check server status!");
-                ErrorMessage errorMessage = new ErrorMessage(404, "SERVER::ERROR");
-                return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+                ResponseMessage responseMessage = new ResponseMessage(999, "LOGIN::SUCCESS", member);
+
+                logger.info("Login Success!");
+                return new ResponseEntity<ResponseMessage>(responseMessage, responseHeader, HttpStatus.OK);
             }
+
+            logger.info("Login Fail!");
+            ErrorMessage errorMessage = new ErrorMessage(999, "LOGIN::FAIL");
+            return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.NOT_FOUND);
+
+        } catch(Exception e){
+            logger.info("Please check server status!");
+            ErrorMessage errorMessage = new ErrorMessage(999, "SERVER::ERROR");
+            return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        //아이디가 없거나 비밀번호가 불일치하는 경우
-        logger.info("Login Fail!");
-        ErrorMessage errorMessage = new ErrorMessage(404, "LOGIN::FAIL");
-        return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/get")
