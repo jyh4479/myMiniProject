@@ -5,46 +5,65 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
 
-import java.security.PrivateKey;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+//https://aejeong.com/entry/Spring-boot-JWT-RefreshToken-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0
+//토큰 구현 참고
 @Service
 public class JwtTokenProvider {
-    private PrivateKey privateKey;
-    private final long tokenValidTime = 60 * 30 * 1000L;
 
-    public String createToken(String id, String password) {
-        Claims claims = Jwts.claims().setSubject("PAYLOAD!!");
-        claims.put("id", id);
-        Map<String, Object> header = new HashMap<>();
-        header.put("alg", "HS256");
-        header.put("typ", "JWT");
-        Date now = new Date();
+    private final String ACCESS_KEY = "accessKey";
+    private final String REFRESH_KEY = "refreshKey";
+    private final String DATA_KEY = "userId";
 
+    public String createAccessToken(String id) {
         return Jwts.builder()
-                .setHeader(header)
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + tokenValidTime)) // set Expire Time 언제까지 유효한지.
-//                .signWith(SignatureAlgorithm.RS256, "secret")  // 사용할 암호화 알고리즘과
-                .signWith(SignatureAlgorithm.HS256, "secret")  // 사용할 암호화 알고리즘과
-                .setIssuer("jyh")
-                .setId("JEONG_YONG_HOON!!")
-
+                .setSubject(id)
+                .setHeader(createHeader("Access-Token"))
+                .setClaims(createClaims(id))
+                .setExpiration(createExpireDate(1000 * 60 * 5))
+                .signWith(SignatureAlgorithm.HS256, createSigningKey(ACCESS_KEY))
                 .compact();
+    }
 
-//        Date now = new Date();
+    public String createRefreshToken(String id) {
+        return Jwts.builder()
+                .setSubject(id)
+                .setHeader(createHeader("Refresh-Token"))
+                .setClaims(createClaims(id))
+                .setExpiration(createExpireDate(1000 * 60 * 10))
+                .signWith(SignatureAlgorithm.HS256, createSigningKey(REFRESH_KEY))
+                .compact();
+    }
 
-//        return Jwts.builder()
-//                .setHeaderParam(Header.TYPE, Header.JWT_TYPE) // (1)
-//                .setIssuer("fresh") // (2)
-//                .setIssuedAt(now) // (3)
-//                .setExpiration(new Date(now.getTime() + Duration.ofMinutes(30).toMillis())) // (4)
-//                .claim("id", "아이디") // (5)
-//                .claim("email", "ajufresh@gmail.com")
-//                .signWith(SignatureAlgorithm.HS256, "secret") // (6)
-//                .compact();
+    private Date createExpireDate(long expireDate) {
+        long curTime = System.currentTimeMillis();
+        return new Date(curTime + expireDate);
+    }
+
+    private Map<String, Object> createHeader(String tokenType) {
+        Map<String, Object> header = new HashMap<>();
+
+        header.put("typ", tokenType);
+        header.put("alg", "HS256");
+        header.put("regDate", System.currentTimeMillis());
+
+        return header;
+    }
+
+    private Map<String, Object> createClaims(String id) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(DATA_KEY, id);
+        return claims;
+    }
+
+    private Key createSigningKey(String key) {
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(key);
+        return new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
     }
 }
