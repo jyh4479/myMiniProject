@@ -9,6 +9,8 @@ import com.jplan.authorizationserver.services.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +28,12 @@ public class LoginController {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberService memberService;
+    private final StringRedisTemplate stringRedisTemplate;
 
     //https://great-developer.tistory.com/59
     //https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html
     @PostMapping(value = "/get")
-    public ResponseEntity<?> testController(@RequestBody LoginInfo loginInfo, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<?> testController(@RequestBody LoginInfo loginInfo) {
         try {
             logger.info("Run testController");
             String id = loginInfo.getId();
@@ -38,16 +41,14 @@ public class LoginController {
             /* body에 id와 password를 받아올것 (앞단에서 정보 받는것에 대한 예외처리를 하지만 백단에서도 처리하도록 함) */
 
             /* decode logic & null logic 처리 */
-
-            //로그인 정보가 일치하는 경우 토큰 생성 후 레디스에 리프레쉬 토큰 저장 하고 엑세스 토큰 브라우져에 전달
-
             if (memberService.memberCheck(id, password)) {
                 Member member = memberService.loadOneMember(id);
 
-                //httpServletResponse.setHeader("Token", jwtTokenProvider.createToken());
-
                 HttpHeaders responseHeader = new HttpHeaders();
-                responseHeader.add("Access-Token", jwtTokenProvider.createAccessToken(id));
+                ValueOperations<String, String> vop = stringRedisTemplate.opsForValue();
+
+                responseHeader.add("Access-Token", jwtTokenProvider.createAccessToken(id)); //access token is sent to browser
+                vop.set(id, jwtTokenProvider.createRefreshToken(id)); //refresh token is saved to redis
 
                 ResponseMessage responseMessage = new ResponseMessage(999, "LOGIN::SUCCESS", member);
 
