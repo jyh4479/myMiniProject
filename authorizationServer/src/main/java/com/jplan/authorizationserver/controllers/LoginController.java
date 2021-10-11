@@ -38,7 +38,7 @@ public class LoginController {
             logger.info("Run testController");
             String id = loginInfo.getId();
             String password = loginInfo.getPassword();
-            /* body에 id와 password를 받아올것 (앞단에서 정보 받는것에 대한 예외처리를 하지만 백단에서도 처리하도록 함) */
+            /* body 에 id와 password 를 받아올것 (앞단에서 정보 받는것에 대한 예외처리를 하지만 백단에서도 처리하도록 함) */
 
             /* decode logic & null logic 처리 */
             if (memberService.memberCheck(id, password)) {
@@ -53,17 +53,17 @@ public class LoginController {
                 ResponseMessage responseMessage = new ResponseMessage(999, "LOGIN::SUCCESS", member);
 
                 logger.info("Login Success!");
-                return new ResponseEntity<ResponseMessage>(responseMessage, responseHeader, HttpStatus.OK);
+                return new ResponseEntity<>(responseMessage, responseHeader, HttpStatus.OK);
             }
 
             logger.info("Login Fail!");
             ErrorMessage errorMessage = new ErrorMessage(999, "LOGIN::FAIL");
-            return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
 
         } catch (Exception e) {
             logger.info("Please check server status!");
             ErrorMessage errorMessage = new ErrorMessage(999, "SERVER::ERROR");
-            return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
