@@ -12,7 +12,6 @@ const Login = props => {
         const id = getInputId.current.value
         const password = getInputPassword.current.value
         await apiService.signIn(id, password)
-        console.log(getInputId.current.value)
     }
 
     const signUp = e => {
