@@ -12,7 +12,7 @@ public class GatewayConfig {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("path_route", r -> r.path("/test/**")
+                .route("path_route", r -> r.path("/jplan/**")
                         .uri("http://localhost:8000/")).build();
     }
 }

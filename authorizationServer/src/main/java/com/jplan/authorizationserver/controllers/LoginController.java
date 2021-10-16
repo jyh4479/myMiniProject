@@ -1,8 +1,9 @@
 package com.jplan.authorizationserver.controllers;
 
 import com.jplan.authorizationserver.dto.ErrorMessage;
-import com.jplan.authorizationserver.dto.LoginInfo;
 import com.jplan.authorizationserver.dto.ResponseMessage;
+import com.jplan.authorizationserver.dto.SignInData;
+import com.jplan.authorizationserver.dto.SignUpData;
 import com.jplan.authorizationserver.entities.Member;
 import com.jplan.authorizationserver.services.JwtTokenProvider;
 import com.jplan.authorizationserver.services.MemberService;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/jplan")
 public class LoginController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -32,12 +33,12 @@ public class LoginController {
 
     //https://great-developer.tistory.com/59
     //https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html
-    @PostMapping(value = "/get")
-    public ResponseEntity<?> testController(@RequestBody LoginInfo loginInfo) {
+    @PostMapping(value = "/signin")
+    public ResponseEntity<?> memberSignInController(@RequestBody SignInData signInData) {
         try {
             logger.info("Run testController");
-            String id = loginInfo.getId();
-            String password = loginInfo.getPassword();
+            String id = signInData.getId();
+            String password = signInData.getPassword();
             /* body 에 id와 password 를 받아올것 (앞단에서 정보 받는것에 대한 예외처리를 하지만 백단에서도 처리하도록 함) */
 
             /* decode logic & null logic 처리 */
@@ -65,6 +66,12 @@ public class LoginController {
             ErrorMessage errorMessage = new ErrorMessage(999, "SERVER::ERROR");
             return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping(value = "/signup")
+    public ResponseEntity<?> memberSignInController(@RequestBody SignUpData signUpData) {
+        logger.info("{} get data from client", signUpData.getEmail());
+        return new ResponseEntity<>(null, null, HttpStatus.OK);
     }
 
     @GetMapping(value = "/get")
