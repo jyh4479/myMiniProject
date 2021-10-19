@@ -36,7 +36,7 @@ public class LoginController {
     @PostMapping(value = "/signin")
     public ResponseEntity<?> memberSignInController(@RequestBody SignInData signInData) {
         try {
-            logger.info("Run testController");
+            logger.info("Run memberSignInController");
             String id = signInData.getId();
             String password = signInData.getPassword();
             /* body 에 id와 password 를 받아올것 (앞단에서 정보 받는것에 대한 예외처리를 하지만 백단에서도 처리하도록 함) */
