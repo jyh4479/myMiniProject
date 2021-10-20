@@ -16,7 +16,6 @@ const Login = props => {
 
     const signUp = e => {
         e.preventDefault()
-        console.log(getInputPassword.current.value)
         props.history.push('/signup')
     }
 

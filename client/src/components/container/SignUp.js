@@ -2,7 +2,7 @@ import React from 'react';
 import apiService from '../../utils/API'
 import {BasicButton, BasicText, ComponentBox, Row} from '../presentational';
 
-const SignUp = () => {
+const SignUp = props => {
     let getInputId = React.createRef()
     let getInputPassword = React.createRef()
     let getInputName = React.createRef()
@@ -14,6 +14,11 @@ const SignUp = () => {
         const name = getInputName.current.value
         const email = getInputEmail.current.value
         await apiService.signUp(id, password, name, email)
+    }
+
+    const back = e => {
+        e.preventDefault()
+        props.history.push('/')
     }
 
     return (
@@ -29,8 +34,8 @@ const SignUp = () => {
                 <Row><input placeholder={'이메일'} ref={getInputEmail}/></Row>
 
                 <Row marginTop={15} rowGap={10}>
-                    {/*<BasicButton message={'로그인'} onClick={signIn}/>*/}
                     <BasicButton message={'회원가입'} onClick={signUp}/>
+                    <BasicButton message={'뒤로가기'} onClick={back}/>
                 </Row>
 
             </ComponentBox>
