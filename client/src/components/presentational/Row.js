@@ -3,14 +3,14 @@ import styled from 'styled-components'
 
 const Row = props => {
 
-    const {marginTop, marginLeft, marginBottom, marginRight, columnGap, rowGap} = props
+    const {marginTop = 0, marginLeft = 0, marginBottom = 0, marginRight = 0, columnGap = 0, rowGap = 0, visible = true} = props
 
     const BasicRow = styled.div`
-    display:flex;
-    justify-content: center;
-    width: 100%;
-    margin: ${marginTop}px ${marginLeft}px ${marginBottom}px ${marginRight}px;
-    gap: ${columnGap}px ${rowGap}px;
+      display: ${visible ? "flex" : "none"};
+      justify-content: center;
+      width: 100%;
+      margin: ${marginTop}px ${marginLeft}px ${marginBottom}px ${marginRight}px;
+      gap: ${columnGap}px ${rowGap}px;
     `
 
     return (

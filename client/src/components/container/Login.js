@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {BasicButton, BasicText, ComponentBox, Row} from '../presentational'
 import apiService from '../../utils/API'
 import '../../styles/Login.scss'
 
 const Login = props => {
+
+    const [memberCheck, setMemberCheck] = useState(false);
+
     let getInputId = React.createRef()
     let getInputPassword = React.createRef()
 
@@ -11,7 +14,8 @@ const Login = props => {
         e.preventDefault()
         const id = getInputId.current.value
         const password = getInputPassword.current.value
-        await apiService.signIn(id, password)
+        console.log(await apiService.signIn(id, password))
+        // setMemberCheck(!result)
     }
 
     const signUp = e => {
@@ -29,10 +33,13 @@ const Login = props => {
                     <Row><input className={'loginInput'} placeholder={'ID'} ref={getInputId}/></Row>
                     <Row><input className={'loginInput'} placeholder={'PASSWORD'} type={'password'}
                                 ref={getInputPassword}/></Row>
-                    <Row marginTop={15} rowGap={10}>
+                    <Row>
                         <BasicButton message={'로그인'} onClick={signIn}/>
                         <BasicButton message={'회원가입'} onClick={signUp}/>
                     </Row>
+
+                    <Row visible={memberCheck} marginTop={15}><BasicText type={'content'}
+                                                                         message={'아이디와 비밀번호를 확인해주세요.'}/></Row>
 
                 </ComponentBox>
             </Row>
