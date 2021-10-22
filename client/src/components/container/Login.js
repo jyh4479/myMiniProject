@@ -12,10 +12,21 @@ const Login = props => {
 
     const signIn = async (e) => {
         e.preventDefault()
+
         const id = getInputId.current.value
         const password = getInputPassword.current.value
-        console.log(await apiService.signIn(id, password))
-        // setMemberCheck(!result)
+
+        let result
+
+        try {
+            result = await apiService.signIn(id, password)
+            props.history.push('/')
+        } catch (e) {
+            console.log(e)
+        } finally {
+            setMemberCheck(!result)
+        }
+
     }
 
     const signUp = e => {
@@ -38,8 +49,8 @@ const Login = props => {
                         <BasicButton message={'회원가입'} onClick={signUp}/>
                     </Row>
 
-                    <Row visible={memberCheck} marginTop={15}><BasicText type={'content'}
-                                                                         message={'아이디와 비밀번호를 확인해주세요.'}/></Row>
+                    <Row className={'error'} visible={memberCheck} marginTop={15}><BasicText type={'content'}
+                                                                                             message={'아이디와 비밀번호를 확인해주세요.'}/></Row>
 
                 </ComponentBox>
             </Row>

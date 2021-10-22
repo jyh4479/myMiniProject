@@ -3,7 +3,16 @@ import styled from 'styled-components'
 
 const Row = props => {
 
-    const {marginTop = 0, marginLeft = 0, marginBottom = 0, marginRight = 0, columnGap = 0, rowGap = 0, visible = true} = props
+    const {
+        marginTop = 0,
+        marginLeft = 0,
+        marginBottom = 0,
+        marginRight = 0,
+        columnGap = 0,
+        rowGap = 0,
+        visible = true,
+        className
+    } = props
 
     const BasicRow = styled.div`
       display: ${visible ? "flex" : "none"};
@@ -14,7 +23,7 @@ const Row = props => {
     `
 
     return (
-        <BasicRow>
+        <BasicRow className={className}>
             {props.children}
         </BasicRow>
     )

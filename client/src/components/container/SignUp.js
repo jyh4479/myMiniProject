@@ -18,7 +18,7 @@ const SignUp = props => {
 
     const back = e => {
         e.preventDefault()
-        props.history.push('/')
+        props.history.push('/login')
     }
 
     return (
