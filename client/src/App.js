@@ -1,13 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {HomePage, LoginPage, SignUpPage} from "./pages";
 
 const App = () => {
 
-    useEffect(() => {
-        if (!window.localStorage.getItem('Access-Token') && window.location.pathname !== '/login')
-            window.location.replace('/login')
-    }, [])
+    if (!window.localStorage.getItem('Access-Token') && window.location.pathname !== '/login')
+        return <LoginPage/>
 
     return (
         <Router>
