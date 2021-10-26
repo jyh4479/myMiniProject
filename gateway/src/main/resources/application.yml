@@ -5,6 +5,7 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins: "*"
+            exposedHeaders: "Access-Token"
             allowedHeaders:
               - x-requested-with
               - authorization

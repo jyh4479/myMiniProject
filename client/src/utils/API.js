@@ -22,9 +22,10 @@ axios.interceptors.response.use((response) => {
 
 const signIn = async (id, password) => {
     const inputData = {id: id, password: password}
-    const {status, headers} = await axios.post(baseUrl + "jplan/signin", inputData)
+    const {status, headers, data} = await axios.post(baseUrl + "jplan/signin", inputData)
 
-    console.log(headers)
+    console.log(headers["access-token"])
+    debugger
     /* 리턴되는 토큰과 로그인 성공 알려주는 로직 추가 */
 
     return status === 200;
