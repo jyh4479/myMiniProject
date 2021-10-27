@@ -4,7 +4,8 @@ import {HomePage, LoginPage, SignUpPage} from "./pages";
 
 const App = () => {
 
-    if (!window.localStorage.getItem('Access-Token') && window.location.pathname !== '/login')
+    /* 해당 로직 변경 필요 --> 단순 로그인페이지 리턴으로 라우팅이 안먹힘 */
+    if (!window.localStorage.getItem('access-token') && window.location.pathname !== '/login')
         return <LoginPage/>
 
     return (
