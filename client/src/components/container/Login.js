@@ -22,6 +22,7 @@ const Login = props => {
             result = await apiService.signIn(id, password)
             props.history.push('/')
         } catch (e) {
+            console.log('Error Catch in Login')
             console.log(e)
         } finally {
             setMemberCheck(!result)
