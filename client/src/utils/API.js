@@ -1,4 +1,5 @@
 const axios = require('axios')
+const jwt = require('jsonwebtoken')
 const baseUrl = "http://localhost:8080/";
 
 axios.interceptors.request.use((config) => {
@@ -37,4 +38,8 @@ const signUp = async (id, password, name, email) => {
     console.log(res)
 }
 
-export default {signIn, signUp}
+const getUserData = token => {
+    return jwt.decode(token)
+}
+
+export default {signIn, signUp, getUserData}
