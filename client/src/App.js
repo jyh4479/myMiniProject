@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
-import {HomePage, LoginPage, SignUpPage} from "./pages";
+import {HomePage, LoginPage, MyPage, SignUpPage} from "./pages";
 
 const App = () => {
     return (
@@ -13,6 +13,7 @@ const App = () => {
                 <Route exact path={'/'} component={HomePage}/>
                 <Route path={'/login'} component={LoginPage}/>
                 <Route path={'/signup'} component={SignUpPage}/>
+                <Route path={'/mypage'} component={MyPage}/>
             </Switch>
         </Router>
     );

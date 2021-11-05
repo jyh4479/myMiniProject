@@ -25,7 +25,7 @@ const signIn = async (id, password) => {
     const inputData = {id: id, password: password}
     const {status, headers} = await axios.post(baseUrl + "jplan/signin", inputData)
 
-    window.localStorage.setItem('access-token',headers['access-token'])
+    window.localStorage.setItem('access-token', headers['access-token'])
 
     /* 리턴되는 토큰과 로그인 성공 알려주는 로직 추가 */
 
@@ -38,8 +38,14 @@ const signUp = async (id, password, name, email) => {
     console.log(res)
 }
 
-const getUserData = token => {
-    return jwt.decode(token)
+const getUserId = () => {
+    const {userId} = jwt.decode(window.localStorage.getItem('access-token'))
+    return userId
 }
 
-export default {signIn, signUp, getUserData}
+const getUserData = async (userId) => {
+    const res = await axios.get(baseUrl + "jplan/user")
+    console.log(res)
+}
+
+export default {signIn, signUp, getUserId, getUserData}
