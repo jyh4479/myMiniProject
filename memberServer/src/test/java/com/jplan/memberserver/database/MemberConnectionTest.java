@@ -13,6 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 //https://github.com/jojoldu/freelec-springboot2-webservice/issues/78 --> test code 설정 참고
 //https://memostack.tistory.com/195 --> Repository Test 관련 참고
+//https://happyer16.tistory.com/entry/Spring-Boot-Test-%EC%A2%85%ED%95%A9-%EC%A0%95%EB%A6%AC --> 테스트 코드 동작 성공 관련 블로그
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
