@@ -1,5 +1,6 @@
 package com.jplan.memberserver.database;
 
+import com.jplan.memberserver.entities.Member;
 import com.jplan.memberserver.repositories.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,9 +27,8 @@ public class MemberConnectionTest {
 
     @Test
     public void getOneMember() {
-//        Member member = memberRepository.getById("jyh4479");
-//        Assertions.assertEquals(member.getId(), "jyh4479");
-
+        Member member = memberRepository.getById("jyh4479");
+        Assertions.assertEquals("jyh4479", member.getId());
         Assertions.assertEquals(1, 1);
     }
 }
