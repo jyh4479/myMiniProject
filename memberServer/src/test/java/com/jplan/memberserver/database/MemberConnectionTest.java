@@ -28,6 +28,16 @@ public class MemberConnectionTest {
     @Test
     public void getOneMember() {
         Member member = memberRepository.getById("jyh4479");
+
+        Member testMember=Member.builder()
+                .id("jyh4479")
+                .name("정용훈")
+                .phone("01041331927")
+                .email("qpal415@gmail.com")
+                .birth("1996.03.15")
+                .password()
+                .build();
+
         Assertions.assertEquals("jyh4479", member.getId());
         Assertions.assertEquals(1, 1);
     }

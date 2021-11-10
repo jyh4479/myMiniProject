@@ -1,5 +1,6 @@
 package com.jplan.memberserver.entities;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,4 +30,15 @@ public class Member {
 
     @Column
     private String membership;
+
+    @Builder
+    public Member(String id, String name, String phone, String email, String birth, String password, String membership) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.birth = birth;
+        this.password = password;
+        this.membership = membership;
+    }
 }
