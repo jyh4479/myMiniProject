@@ -5,7 +5,6 @@ import com.jplan.memberserver.repositories.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -27,18 +26,19 @@ public class MemberConnectionTest {
 
     @Test
     public void getOneMember() {
-        Member member = memberRepository.getById("jyh4479");
-
-        Member testMember=Member.builder()
+        Member member = Member.builder()
                 .id("jyh4479")
                 .name("정용훈")
                 .phone("01041331927")
                 .email("qpal415@gmail.com")
                 .birth("1996.03.15")
-                .password()
+                .password("1234")
+                .membership("normal")
                 .build();
 
-        Assertions.assertEquals("jyh4479", member.getId());
-        Assertions.assertEquals(1, 1);
+        Member testMember = memberRepository.getById("jyh4479");
+
+        Assertions.assertEquals(member, testMember);
+//        Assertions.assertEquals(1, 1);
     }
 }
