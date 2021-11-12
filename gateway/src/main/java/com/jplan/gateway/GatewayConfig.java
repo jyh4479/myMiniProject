@@ -9,10 +9,15 @@ import org.springframework.context.annotation.Configuration;
 public class GatewayConfig {
 //    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private final String baseUrl = "/jplan/";
+
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("path_route", r -> r.path("/jplan/**")
-                        .uri("http://localhost:8000/")).build();
+                .route("path_auto_route", r -> r.path(baseUrl + "authservice/**")
+                        .uri("http://localhost:8000/"))
+                .route("path_member_route", r -> r.path(baseUrl + "memberservice/**")
+                        .uri("http://localhost:8010/"))
+                .build();
     }
 }

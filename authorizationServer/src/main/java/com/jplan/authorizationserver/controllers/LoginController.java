@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 @Log
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/jplan")
+@RequestMapping("/jplan/authservice")
 public class LoginController {
 
     private final ResponseProvider responseProvider;

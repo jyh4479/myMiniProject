@@ -1,6 +1,6 @@
 const axios = require('axios')
 const jwt = require('jsonwebtoken')
-const baseUrl = "http://localhost:8080/";
+const baseUrl = "http://localhost:8080/jplan/authservice/";
 
 axios.interceptors.request.use((config) => {
     console.log("req")
@@ -23,7 +23,7 @@ axios.interceptors.response.use((response) => {
 
 const signIn = async (id, password) => {
     const inputData = {id: id, password: password}
-    const {status, headers} = await axios.post(baseUrl + "jplan/signin", inputData)
+    const {status, headers} = await axios.post(baseUrl + "signin", inputData)
 
     window.localStorage.setItem('access-token', headers['access-token'])
 
@@ -34,7 +34,7 @@ const signIn = async (id, password) => {
 
 const signUp = async (id, password, name, email) => {
     const data = {id: id, password: password, name: name, email: email}
-    const res = await axios.post(baseUrl + "jplan/signup", data)
+    const res = await axios.post(baseUrl + "signup", data)
     console.log(res)
 }
 
