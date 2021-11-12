@@ -39,6 +39,5 @@ public class MemberConnectionTest {
         Member testMember = memberRepository.getById("jyh4479");
 
         Assertions.assertEquals(member, testMember);
-//        Assertions.assertEquals(1, 1);
     }
 }
