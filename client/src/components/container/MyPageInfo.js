@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
-import apiService from '../../utils/API'
+import {memberServiceApi} from '../../utils'
 
 const MyPageInfo = props => {
 
-    const userId = apiService.getUserId()
-    const userData = apiService.getUserData(userId)
+    const memberId = memberServiceApi.getMemberId()
+    const memberData = memberServiceApi.getMemberData(memberId)
 
     useEffect(() => {
 

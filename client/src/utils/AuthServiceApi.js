@@ -38,14 +38,4 @@ const signUp = async (id, password, name, email) => {
     console.log(res)
 }
 
-const getUserId = () => {
-    const {userId} = jwt.decode(window.localStorage.getItem('access-token'))
-    return userId
-}
-
-const getUserData = async (userId) => {
-    const res = await axios.get(baseUrl + "jplan/user")
-    console.log(res)
-}
-
-export default {signIn, signUp, getUserId, getUserData}
+export default {signIn, signUp}

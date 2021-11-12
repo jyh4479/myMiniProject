@@ -1,10 +1,10 @@
 import React from 'react'
-import apiService from '../../utils/API'
+import {memberServiceApi} from '../../utils'
 import {BasicButton, Row} from "../presentational";
 
 const Home = props => {
 
-    const userId = apiService.getUserId()
+    const userId = memberServiceApi.getMemberId()
 
     const logOut = e => {
         e.preventDefault()
@@ -20,8 +20,12 @@ const Home = props => {
 
     return (
         <>
-            <Row><div>{userId}님 환영합니다.</div></Row>
-            <Row><div>홈</div></Row>
+            <Row>
+                <div>{userId}님 환영합니다.</div>
+            </Row>
+            <Row>
+                <div>홈</div>
+            </Row>
             <Row><BasicButton message={'내정보'} onClick={myInfo}/><BasicButton message={'로그아웃'} onClick={logOut}/></Row>
         </>
     )

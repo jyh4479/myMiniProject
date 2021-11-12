@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {BasicButton, BasicText, ComponentBox, Row} from '../presentational'
-import apiService from '../../utils/API'
+import {authServiceApi} from '../../utils'
 import '../../styles/Login.scss'
 
 const Login = props => {
@@ -19,7 +19,7 @@ const Login = props => {
         let result
 
         try {
-            result = await apiService.signIn(id, password)
+            result = await authServiceApi.signIn(id, password)
             props.history.push('/')
         } catch (e) {
             console.log('Error Catch in Login')

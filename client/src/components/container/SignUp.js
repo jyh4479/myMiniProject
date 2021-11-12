@@ -1,5 +1,5 @@
 import React from 'react';
-import apiService from '../../utils/API'
+import {authServiceApi} from '../../utils'
 import {BasicButton, BasicText, ComponentBox, Row} from '../presentational';
 
 const SignUp = props => {
@@ -13,7 +13,7 @@ const SignUp = props => {
         const password = getInputPassword.current.value
         const name = getInputName.current.value
         const email = getInputEmail.current.value
-        await apiService.signUp(id, password, name, email)
+        await authServiceApi.signUp(id, password, name, email)
     }
 
     const back = e => {
