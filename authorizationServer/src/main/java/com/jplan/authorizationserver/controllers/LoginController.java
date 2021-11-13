@@ -66,17 +66,4 @@ public class LoginController {
         log.info(signUpData.getEmail() + " get data from client");
         return new ResponseEntity<>(null, null, HttpStatus.OK);
     }
-
-    @GetMapping(value = "/get")
-    public String testControllerPost() {
-        log.info("Run testController2");
-        return "This is get";
-    }
-
-    @PostMapping(value = "/post")
-    public String testPostController(@RequestBody String body, HttpServletRequest req, HttpServletResponse res) {
-        log.info("Run testController");
-        log.info("Info is ==> " + body);
-        return "This is post";
-    }
 }
