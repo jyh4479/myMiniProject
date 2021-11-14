@@ -1,4 +1,3 @@
-
 server:
   port: 8010
 
@@ -8,3 +7,7 @@ spring:
     url: jdbc:mysql://localhost:3306/jplan?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: ""
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
