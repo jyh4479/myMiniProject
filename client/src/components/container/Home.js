@@ -4,7 +4,7 @@ import {BasicButton, Row} from "../presentational";
 
 const Home = props => {
 
-    const userId = memberServiceApi.getMemberId()
+    const memberId = memberServiceApi.getMemberId()
 
     const logOut = e => {
         e.preventDefault()
@@ -21,7 +21,7 @@ const Home = props => {
     return (
         <>
             <Row>
-                <div>{userId}님 환영합니다.</div>
+                <div>{memberId}님 환영합니다.</div>
             </Row>
             <Row>
                 <div>홈</div>

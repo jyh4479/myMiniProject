@@ -7,9 +7,12 @@ const getMemberId = () => {
     return userId
 }
 
-const getMemberData = async (userId) => {
-    const res = await axios.get(baseUrl + "member")
-    console.log(res)
+const getMemberData = async (memberId) => {
+
+    const params = {id: memberId}
+
+    const res = await axios.get(baseUrl + "member", {params})
+    return res.data
 }
 
 export default {getMemberId, getMemberData}
