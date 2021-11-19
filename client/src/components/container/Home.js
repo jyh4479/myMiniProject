@@ -1,6 +1,6 @@
 import React from 'react'
 import {memberServiceApi} from '../../utils'
-import {BasicButton, Row} from "../presentational";
+import {BasicButton, GlobalNavigationBar, Row} from "../presentational";
 
 const Home = props => {
 
@@ -20,6 +20,7 @@ const Home = props => {
 
     return (
         <>
+            <GlobalNavigationBar/>
             <Row>
                 <div>{memberId}님 환영합니다.</div>
             </Row>

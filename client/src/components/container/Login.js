@@ -46,8 +46,8 @@ const Login = props => {
                     <Row><input className={'loginInput'} placeholder={'PASSWORD'} type={'password'}
                                 ref={getInputPassword}/></Row>
                     <Row>
-                        <BasicButton message={'로그인'} onClick={signIn}/>
-                        <BasicButton message={'회원가입'} onClick={signUp}/>
+                        <BasicButton type={'login'} message={'로그인'} onClick={signIn}/>
+                        <BasicButton type={'login'} message={'회원가입'} onClick={signUp}/>
                     </Row>
 
                     <Row className={'error'} visible={memberCheck} marginTop={15}><BasicText type={'content'}
