@@ -1,4 +1,5 @@
-.globalMenu {
-  border: 0;
-  outline: 0;
+.globalMenuButton {
+  &:hover {
+    background: #282c34;
+  }
 }

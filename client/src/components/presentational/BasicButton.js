@@ -17,11 +17,11 @@ const MenuButton = styled.button`
 
 const BasicButton = props => {
 
-    const {type = '', message = '', onClick = '', children} = props
+    const {type = '', message = '', onClick = '', children, className} = props
 
-    if (type === 'login') return <LoginButton onClick={onClick}>{message} {children} </LoginButton>
-    else if (type === 'menu') return <MenuButton onClick={onClick}>{message} {children} </MenuButton>
-    else return <DefaultButton onClick={onClick}>{message} {children}</DefaultButton>
+    if (type === 'login') return <LoginButton className={className} onClick={onClick}>{message} {children} </LoginButton>
+    else if (type === 'menu') return <MenuButton className={className} onClick={onClick}>{message} {children} </MenuButton>
+    else return <DefaultButton className={className} onClick={onClick}>{message} {children}</DefaultButton>
 }
 
 export default BasicButton
