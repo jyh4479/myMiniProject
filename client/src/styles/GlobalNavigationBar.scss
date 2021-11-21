@@ -1,5 +1,9 @@
+.globalMenu {
+  background: darkslategrey;
+}
+
 .globalMenuButton {
   &:hover {
-    background: #282c34;
+    color: lightyellow;
   }
 }

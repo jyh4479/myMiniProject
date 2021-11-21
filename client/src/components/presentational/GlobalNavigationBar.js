@@ -5,27 +5,27 @@ import {faComments, faUser, faWindowClose} from '@fortawesome/free-regular-svg-i
 import '../../styles/GlobalNavigationBar.scss'
 
 
-const GlobalNavigationBar = () => {
+const GlobalNavigationBar = props => {
 
-    const makeMenuView = (itemList) => {
-        return itemList.map(icon => <BasicButton type={'menu'} className={'globalMenuButton'}><FontAwesomeIcon
-            icon={icon}
-            size={"2x"}/></BasicButton>)
+    const makeMenuView = itemList => {
+        return itemList.map(icon =>
+            <BasicButton type={'menu'} className={'globalMenuButton'}><FontAwesomeIcon
+                onClick={() => {
+                    props.history.push(icon[1])
+                }}
+                icon={icon[0]}
+                size={"2x"}/></BasicButton>
+        )
     }
     const MenuView = useMemo(() => {
-        const icons = [faUser, faComments, faWindowClose, faWindowClose, faWindowClose]
-        return makeMenuView(icons)
+        const iconInfo = [[faUser, '/mypage'], [faComments, '/'], [faWindowClose, '/'], [faWindowClose, '/'], [faWindowClose, '/']]
+        return makeMenuView(iconInfo)
     }, [])
 
     return (
-        <>
-            <Row rowGap={30}>
-                {MenuView}
-            </Row>
-            <Row>
-                <div>Bar</div>
-            </Row>
-        </>
+        <Row rowGap={30} className={'globalMenu'}>
+            {MenuView}
+        </Row>
     )
 }
 
