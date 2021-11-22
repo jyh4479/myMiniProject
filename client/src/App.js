@@ -17,7 +17,7 @@ const App = () => {
             {/*        //window.location.pathname === '/' ? '/login' : '/'*/}
             {/*    }/>)}/>*/}
             <Switch>
-                <PrivateRoute exact path={'/'} component={HomePage}/>
+                <Route exact path={'/'} component={HomePage}/>
                 <Route path={'/login'} component={LoginPage}/>
                 <Route path={'/signup'} component={SignUpPage}/>
                 <PrivateRoute path={'/mypage'} component={MyPage}/>

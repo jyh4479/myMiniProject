@@ -5,7 +5,11 @@ const DefaultButton = styled.button`
   border-radius: 10px;
 `
 const LoginButton = styled.button`
-  border-radius: 10px;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  background: darkslategrey;
+  color:lightgoldenrodyellow;
 `
 
 const MenuButton = styled.button`

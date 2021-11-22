@@ -2,6 +2,10 @@ const axios = require('axios')
 const jwt = require('jsonwebtoken')
 const baseUrl = "http://localhost:8080/jplan/memberservice/";
 
+const isToken = () => {
+    return !!window.localStorage.getItem('access-token');
+}
+
 const getMemberId = () => {
     const {userId} = jwt.decode(window.localStorage.getItem('access-token'))
     return userId
@@ -15,4 +19,4 @@ const getMemberData = async (memberId) => {
     return res.data
 }
 
-export default {getMemberId, getMemberData}
+export default {getMemberId, getMemberData, isToken}

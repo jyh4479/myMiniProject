@@ -1,23 +1,36 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {memberServiceApi} from '../../utils'
 import {BasicButton, GlobalNavigationBar, Row} from "../presentational";
 
 const Home = props => {
 
-    const memberId = memberServiceApi.getMemberId()
+    const [loginState, setLoginState] = useState(false)
+    const [memberId, setMemberId] = useState(null)
+
+    useEffect(() => {
+        if (memberServiceApi.isToken()) {
+            setLoginState(true)
+            setMemberId(memberServiceApi.getMemberId())
+        }
+    }, [])
+
+    const signIn = e => {
+        e.preventDefault()
+        props.history.push('/login')
+    }
 
     const logOut = e => {
         e.preventDefault()
         window.localStorage.removeItem('access-token')
         props.history.push('/login')
-        console.log('로그아웃동작')
     }
 
     return (
         <>
             <GlobalNavigationBar history={props.history}/>
             <Row>
-                <div>{memberId}님 환영합니다.</div>
+                {loginState ? <div>{memberId}님 환영합니다.</div> :
+                    <BasicButton type={'login'} message={'로그인'} onClick={signIn}/>}
             </Row>
             <Row>
                 <div>홈</div>
