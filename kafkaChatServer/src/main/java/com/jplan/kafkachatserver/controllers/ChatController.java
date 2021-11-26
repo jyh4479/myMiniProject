@@ -20,12 +20,25 @@ public class ChatController {
     @Autowired
     private KafkaTemplate<String, Message> kafkaTemplate;
 
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTestTemplate;
+
     @PostMapping(value = "/publish")
     public void sendMessage(@RequestBody Message message) {
         log.info("Produce message : " + message.toString());
         message.setTimestamp(LocalDateTime.now().toString());
         try {
             kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC, message).get();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping(value = "/test")
+    public void sendTestSignal() {
+        log.info("Call Test Controller");
+        try {
+            kafkaTestTemplate.send(KafkaConstants.KAFKA_TOPIC, "TestMessage!").get();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
