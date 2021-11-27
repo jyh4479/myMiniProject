@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {HomePage, LoginPage, MyPage, SignUpPage} from "./pages";
+import {ChatAppPage, HomePage, LoginPage, MyPage, SignUpPage} from "./pages";
 import {PrivateRoute} from "./utils";
 
 const App = () => {
@@ -21,6 +21,7 @@ const App = () => {
                 <Route path={'/login'} component={LoginPage}/>
                 <Route path={'/signup'} component={SignUpPage}/>
                 <PrivateRoute path={'/mypage'} component={MyPage}/>
+                <PrivateRoute path={'/chat'} component={ChatAppPage}/>
             </Switch>
         </Router>
     );

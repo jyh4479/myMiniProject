@@ -18,7 +18,7 @@ const GlobalNavigationBar = props => {
         )
     }
     const MenuView = useMemo(() => {
-        const iconInfo = [[faUser, '/mypage'], [faComments, '/'], [faWindowClose, '/'], [faWindowClose, '/'], [faWindowClose, '/']]
+        const iconInfo = [[faUser, '/mypage'], [faComments, '/chat'], [faWindowClose, '/'], [faWindowClose, '/'], [faWindowClose, '/']]
         return makeMenuView(iconInfo)
     }, [])
 
