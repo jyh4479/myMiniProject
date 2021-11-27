@@ -20,8 +20,8 @@ public class ChatController {
     @Autowired
     private KafkaTemplate<String, Message> kafkaTemplate;
 
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTestTemplate;
+//    @Autowired
+//    private KafkaTemplate<String, String> kafkaTestTemplate;
 
     @PostMapping(value = "/publish")
     public void sendMessage(@RequestBody Message message) {
@@ -34,15 +34,15 @@ public class ChatController {
         }
     }
 
-    @PostMapping(value = "/test")
-    public void sendTestSignal() {
-        log.info("Call Test Controller");
-        try {
-            kafkaTestTemplate.send(KafkaConstants.KAFKA_TOPIC, "TestMessage!").get();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @PostMapping(value = "/test")
+//    public void sendTestSignal() {
+//        log.info("Call Test Controller");
+//        try {
+//            kafkaTestTemplate.send(KafkaConstants.KAFKA_TOPIC, "TestMessage!").get();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @MessageMapping("/sendMessage")
     @SendTo("/topic/group")
