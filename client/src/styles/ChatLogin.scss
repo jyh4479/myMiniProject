@@ -1,0 +1,46 @@
+.ChatLoginContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.ChatLoginTitle {
+
+}
+
+.ChatLoginForm {
+  width: 50%;
+  height: 50%;
+  margin: 10% 0 0 30%;
+}
+
+.ChatLoginButton {
+  width: 15%;
+  height: 25px;
+  border: none;
+  background: aqua;
+  border-radius: 20px;
+
+  margin: 6% 13% 0 0;
+  float: right;
+
+  &:hover {
+    background: darkslategrey;
+    color: lightgoldenrodyellow;
+  }
+
+  &:hover ~ .ChatLoginInput {
+    border-bottom: darkslategrey 1px solid;
+  }
+}
+
+//.ChatLoginButton:hover ~ .ChatLoginInput {
+//  border-bottom: darkslategrey 1px solid;
+//}
+
+.ChatLoginInput {
+  width: 70%;
+  height: 100px;
+  border: none;
+  text-align: center;
+  border-bottom: aqua 1px solid;
+}

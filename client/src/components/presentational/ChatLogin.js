@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+import '../../styles/ChatLogin.scss'
 
-function ChatLogin({ handleOnSubmit }) {
+function ChatLogin({handleOnSubmit}) {
     const [name, setName] = useState("");
 
     const handleOnChange = (e) => {
@@ -12,14 +13,15 @@ function ChatLogin({ handleOnSubmit }) {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input
-                    placeholder="사용할 닉네임을 입력하세요."
-                    value={name}
-                    onChange={handleOnChange}
+        <div className={'ChatLoginContainer'}>
+            <form className={'ChatLoginForm'} onSubmit={handleSubmit}>
+                <div className={'ChatLoginTitle'}> Kafka Chat</div>
+                <button className={'ChatLoginButton'} type="submit">Go!</button>
+                <input className={'ChatLoginInput'}
+                       placeholder="사용할 닉네임을 입력하세요."
+                       value={name}
+                       onChange={handleOnChange}
                 />
-                <button type="submit">Go!</button>
             </form>
         </div>
     );
