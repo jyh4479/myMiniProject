@@ -1,0 +1,24 @@
+.ChatButton {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.ChatButton input {
+  width: 80%;
+  border: none;
+  background: lightgrey;
+  border-radius: 20px;
+}
+
+.ChatButton button {
+  width: 15%;
+  margin-left: 4%;
+  border: none;
+  border-radius: 20px;
+
+  background: aqua;
+  &:hover {
+    color: lightgoldenrodyellow;
+    background: darkslategray;
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../../styles/ChatInput.scss'
 
 function ChatInput({ handleOnSubmit }) {
     const [msg, setMsg] = useState("");
@@ -13,7 +14,7 @@ function ChatInput({ handleOnSubmit }) {
     };
 
     return (
-        <div className="chat-bottom">
+        <div className="ChatButton">
             <form onSubmit={handleSubmit}>
                 <input
                     placeholder="내용을 입력하세요."

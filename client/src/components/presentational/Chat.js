@@ -1,4 +1,5 @@
 import React from "react";
+import '../../styles/Chat.scss'
 
 function Chat({ messages, currentUser }) {
 
@@ -11,11 +12,11 @@ function Chat({ messages, currentUser }) {
     };
 
     return (
-        <div className="chat-middle">
+        <div className='ChatBox'>
             {messages.map((msg) => (
                 <li
-                    className={`chat-bubble ${
-                        msg.author === currentUser.name ? "send" : "receive"
+                    className={`ChatBubble ${
+                        msg.author === currentUser.name ? "Send" : "Receive"
                     }`}
                 >
                     <span>{msg.author}</span>

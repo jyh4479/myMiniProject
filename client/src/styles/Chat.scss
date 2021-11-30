@@ -1,0 +1,30 @@
+.ChatBox{
+  width: 50%;
+  border: solid 1px black;
+  border-radius: 20px;
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.ChatBubble{
+  list-style: none;
+}
+
+.ChatBubble span{
+  font-size: 1vw;
+  color: gray;
+}
+
+.Send p{
+  background: lightskyblue;
+  border-radius: 20px;
+}
+
+.Receive{
+  text-align: right;
+}
+
+.Receive p{
+  background: lightyellow;
+  border-radius: 20px;
+}
