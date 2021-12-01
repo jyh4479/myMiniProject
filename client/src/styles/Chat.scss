@@ -6,6 +6,10 @@
   margin-top: 5%;
 }
 
+.ChatBox li{
+  width: 100%;
+}
+
 .ChatBubble{
   list-style: none;
 }
@@ -16,15 +20,24 @@
 }
 
 .Send{
+  text-align: right;
+  float: right;
 }
 
 .Send p{
+  margin: 0 0 0 0;
   display: table;
   background: lightskyblue;
   border-radius: 20px;
 }
 
+.Receive{
+  text-align: left;
+  float: left;
+}
+
 .Receive p{
+  margin: 0 0 0 0;
   display: table;
   background: lightyellow;
   border-radius: 20px;
