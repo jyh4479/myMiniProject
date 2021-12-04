@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import '../../styles/ChatInput.scss'
 
-function ChatInput({ handleOnSubmit }) {
+const ChatInput = props => {
+
+    const {handleOnSubmit} = props
+
     const [msg, setMsg] = useState("");
 
     const handleOnChange = (e) => {

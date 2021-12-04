@@ -1,9 +1,11 @@
 import React from "react";
 import '../../styles/Chat.scss'
 
-function Chat({ messages, currentUser }) {
+const Chat = props => {
 
-    const formattingTimestamp = (timestamp) => {
+    const {messages, currentUser} = props
+
+    const formattingTimestamp = timestamp => {
         const date = new Date(timestamp);
         let hour = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
         let min =

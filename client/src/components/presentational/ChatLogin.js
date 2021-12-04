@@ -1,7 +1,10 @@
 import React, {useState} from "react";
 import '../../styles/ChatLogin.scss'
 
-function ChatLogin({handleOnSubmit}) {
+const ChatLogin = props => {
+
+    const {handleOnSubmit} = props
+
     const [name, setName] = useState("");
 
     const handleOnChange = (e) => {
