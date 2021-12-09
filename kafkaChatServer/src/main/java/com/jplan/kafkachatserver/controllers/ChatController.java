@@ -23,12 +23,14 @@ public class ChatController {
 //    @Autowired
 //    private KafkaTemplate<String, String> kafkaTestTemplate;
 
+    //--> 클라이언트 -> 서버 -> 카프카에 PUSH
     @PostMapping(value = "/publish")
     public void sendMessage(@RequestBody Message message) {
         log.info("Produce message : " + message.toString());
         message.setTimestamp(LocalDateTime.now().toString());
         try {
             kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC, message).get();
+//            kafkaTemplate.send("PUSHTEST", message).get();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
