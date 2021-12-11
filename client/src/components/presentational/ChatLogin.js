@@ -15,6 +15,10 @@ const ChatLogin = props => {
         handleOnSubmit(name);
     };
 
+    const createTopicTest = () => {
+        console.log("방만들기테스트")
+    }
+
     return (
         <div className={'ChatLoginContainer'}>
             <form className={'ChatLoginForm'} onSubmit={handleSubmit}>
@@ -26,6 +30,8 @@ const ChatLogin = props => {
                        onChange={handleOnChange}
                 />
             </form>
+
+            <button onClick={createTopicTest}>방만들기테스트</button>
         </div>
     );
 }

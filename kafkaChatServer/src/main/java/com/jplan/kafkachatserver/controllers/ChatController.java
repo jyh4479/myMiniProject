@@ -36,6 +36,16 @@ public class ChatController {
         }
     }
 
+    @PostMapping(value = "/createTopic")
+    public void createTopic() {
+        try {
+//            kafkaTemplate;
+            System.out.println("HI");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 //    @PostMapping(value = "/test")
 //    public void sendTestSignal() {
 //        log.info("Call Test Controller");
@@ -51,5 +61,6 @@ public class ChatController {
     public Message broadcastGroupMessage(@Payload Message message) {
         return message;
     }
+
 
 }
