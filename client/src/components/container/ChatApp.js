@@ -34,6 +34,27 @@ function ChatApp() {
         return "#" + Math.floor(Math.random() * 0xffffff).toString(16);
     };
 
+    const onConnected = () => {
+        chatServiceApi
+            .sendMessage("connect", user.name + " 님이 들어왔습니다.")
+            .then((res) => {
+                console.log("connected!", res);
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
+    const onDisconnected = () => {
+        chatServiceApi
+            .sendMessage("disconnect", user.name + " 님이 나갔습니다.")
+            .then((res) => {
+                console.log("disconnected!", res);
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
+
     return (
         <>
             {user !== null ? (
@@ -41,8 +62,8 @@ function ChatApp() {
                     <SockJsClient
                         url={"http://localhost:2821/test/"}
                         topics={["/topic/group"]}
-                        // onConnect={console.log("connected!")}
-                        // onDisconnect={console.log("disconnected!")}
+                        onConnect={onConnected}
+                        onDisconnect={onDisconnected}
                         onMessage={(msg) => onMessageReceived(msg)}
                         debug={false}
                     />
