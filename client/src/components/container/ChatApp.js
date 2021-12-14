@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import SockJsClient from "react-stomp";
 import {chatServiceApi} from "../../utils";
+import "../../styles/ChatApp.scss"
 
-// import "./styles.css";
+
 import {Chat, ChatInput, ChatLogin} from "../presentational";
 
 
@@ -58,7 +59,7 @@ function ChatApp() {
     return (
         <>
             {user !== null ? (
-                <div className="chat-container">
+                <div className="ChatContainer">
                     <SockJsClient
                         url={"http://localhost:2821/test/"}
                         topics={["/topic/group"]}
