@@ -14,38 +14,40 @@ const Chat = props => {
     };
 
     return (
-        <div className='ChatBox'>
-            {messages.map((msg) => {
-                if (msg.author === "connect" || msg.author === "disconnect") {
-                    return (
-                        <li className={"ConnectBubble"}>
-                            <p>{msg.content}</p>
-                        </li>
-                    )
-                } else {
-                    return (
-                        <li
-                            className={`ChatBubble ${
-                                msg.author === currentUser.name ? "Send" : "Receive"
-                            }`}
-                        >
-                            <span>{msg.author}</span>
-                            <p>{msg.content}</p>
-                            <span>{formattingTimestamp(msg.timestamp)}</span>
-                        </li>
-                    )
-                }
+        <div className='ChatScroll'>
+            <div className='ChatBox'>
+                {messages.map((msg) => {
+                    if (msg.author === "connect" || msg.author === "disconnect") {
+                        return (
+                            <li className={"ConnectBubble"}>
+                                <p>{msg.content}</p>
+                            </li>
+                        )
+                    } else {
+                        return (
+                            <li
+                                className={`ChatBubble ${
+                                    msg.author === currentUser.name ? "Send" : "Receive"
+                                }`}
+                            >
+                                <span>{msg.author}</span>
+                                <p>{msg.content}</p>
+                                <span>{formattingTimestamp(msg.timestamp)}</span>
+                            </li>
+                        )
+                    }
 
-                // <li
-                //     className={`ChatBubble ${
-                //         msg.author === currentUser.name ? "Send" : "Receive"
-                //     }`}
-                // >
-                //     <span>{msg.author}</span>
-                //     <p>{msg.content}</p>
-                //     <span>{formattingTimestamp(msg.timestamp)}</span>
-                // </li>
-            })}
+                    // <li
+                    //     className={`ChatBubble ${
+                    //         msg.author === currentUser.name ? "Send" : "Receive"
+                    //     }`}
+                    // >
+                    //     <span>{msg.author}</span>
+                    //     <p>{msg.content}</p>
+                    //     <span>{formattingTimestamp(msg.timestamp)}</span>
+                    // </li>
+                })}
+            </div>
         </div>
     );
 }

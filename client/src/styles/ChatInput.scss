@@ -1,16 +1,17 @@
 .ChatButton {
-  width: 50%;
-  margin-top: 85%;
+  width: 100%;
+  //margin-top: 85%;
   //margin: 0 auto;
 }
 
 .ChatButton input {
   width: 80%;
   height: 50px;
-  border: none;
+  //border: none;
   background: yellow;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  border: solid 1px lightgrey;
 }
 
 .ChatButton button {
