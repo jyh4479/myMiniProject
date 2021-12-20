@@ -29,7 +29,7 @@ const ChatInput = props => {
                         }
                     }}
                 />
-                <button type="submit">전송</button>
+                <button className={msg ? 'ButtonOn' : 'ButtonOff'} type="submit">전송</button>
             </form>
         </div>
     );

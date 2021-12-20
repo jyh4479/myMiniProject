@@ -4,26 +4,49 @@
   //margin: 0 auto;
 }
 
-.ChatButton input {
-  width: 80%;
+.ChatButton form {
+  width: 100%;
   height: 50px;
-  //border: none;
-  background: yellow;
+  background: none;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   border: solid 1px lightgrey;
 }
 
-.ChatButton button {
-  width: 15%;
-  margin-left: 4%;
+.ChatButton input {
   border: none;
-  border-radius: 20px;
+  width: 80%;
+  font-size: 1vw;
+  //height: 50px;
+  ////border: none;
+  //background: yellow;
+  //border-bottom-left-radius: 10px;
+  //border-bottom-right-radius: 10px;
+  //border: solid 1px lightgrey;
+}
 
-  background: aqua;
+.ChatButton button {
+  width: 5vw;
+  height: 5vw;
+  font-size: 1vw;
+  margin-left: 4%;
+  border: solid 1px gray;
+  border-radius: 10px;
 
-  &:hover {
-    color: lightgoldenrodyellow;
-    background: darkslategray;
-  }
+  //background: aqua;
+  //
+  //&:hover {
+  //  color: lightgoldenrodyellow;
+  //  background: darkslategray;
+  //}
+}
+
+.ButtonOff {
+  background: lightgrey;
+  color: gray;
+}
+
+.ButtonOn {
+  background: #fef01b;
+  border: solid 1px gold !important;
 }
