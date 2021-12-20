@@ -34,8 +34,11 @@ public class Member {
     @Column
     private String membership;
 
+    @Column
+    private String chattingRoomList;
+
     @Builder
-    public Member(String id, String name, String phone, String email, String birth, String password, String membership) {
+    public Member(String id, String name, String phone, String email, String birth, String password, String membership, String chattingRoomList) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -43,5 +46,6 @@ public class Member {
         this.birth = birth;
         this.password = password;
         this.membership = membership;
+        this.chattingRoomList = chattingRoomList;
     }
 }
