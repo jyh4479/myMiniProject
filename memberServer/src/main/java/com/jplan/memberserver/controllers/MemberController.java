@@ -4,10 +4,7 @@ import com.jplan.memberserver.entities.Member;
 import com.jplan.memberserver.services.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Log
 @RestController
@@ -23,5 +20,11 @@ public class MemberController {
         Member member = memberService.getMemberData(id);
         System.out.println(member);
         return member;
+    }
+
+    @PostMapping("/chattingroom")
+    public Integer WebClientTest(@RequestBody Integer id) {
+        log.info("member server get id from chat server!" + id);
+        return id;
     }
 }
