@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping(value = "/jplan/chatroom")
 public class ChattingRoomController {
+
     private final ChattingRoomService chattingRoomService;
+
 
     @PostMapping(value = "/test")
     public void createChattingRoom() {

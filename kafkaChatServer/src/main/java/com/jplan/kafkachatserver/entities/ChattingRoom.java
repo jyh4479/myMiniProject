@@ -14,7 +14,7 @@ public class ChattingRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
 //    @Builder
 //    public ChattingRoom() {
