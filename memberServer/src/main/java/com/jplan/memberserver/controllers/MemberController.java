@@ -4,6 +4,8 @@ import com.jplan.memberserver.entities.Member;
 import com.jplan.memberserver.services.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Log
@@ -23,8 +25,8 @@ public class MemberController {
     }
 
     @PostMapping("/chattingroom")
-    public Integer WebClientTest(@RequestBody Integer id) {
+    public ResponseEntity<?> WebClientTest(@RequestBody Integer id) {
         log.info("member server get id from chat server!" + id);
-        return id;
+        return new ResponseEntity<>(id, null, HttpStatus.NOT_FOUND);
     }
 }
