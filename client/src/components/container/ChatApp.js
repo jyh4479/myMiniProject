@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import SockJsClient from "react-stomp";
-import {chatServiceApi} from "../../utils";
+import {chatServiceApi, memberServiceApi} from "../../utils";
 import "../../styles/ChatApp.scss"
 
 
@@ -10,6 +10,7 @@ import {Chat, ChatInput, ChatLogin} from "../presentational";
 function ChatApp() {
     const [messages, setMessages] = useState([]);
     const [user, setUser] = useState(null);
+    const memberId = memberServiceApi.getMemberId()
 
     const onMessageReceived = (msg) => {
         console.log("New Message Received!!", msg);
@@ -55,11 +56,17 @@ function ChatApp() {
                 console.log(e);
             });
     }
+    const newWindow = (url, user) => {
+        window.open(url, user, 'width=430,height=500,location=no,status=no,scrollbars=yes');
+        window.open(url, user, 'width=430,height=500,location=no,status=no,scrollbars=yes');
+        return true
+    }
 
     return (
         <>
             {user !== null ? (
                 <div className="ChatContainer">
+                    {/*<button onClick={() => newWindow("http://localhost:5000/", user)}>button</button>*/}
                     <SockJsClient
                         url={"http://localhost:2821/test/"}
                         topics={["/topic/group"]}
