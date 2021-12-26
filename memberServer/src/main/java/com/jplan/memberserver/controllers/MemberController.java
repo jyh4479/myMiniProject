@@ -1,5 +1,6 @@
 package com.jplan.memberserver.controllers;
 
+import com.jplan.memberserver.dto.NewChattingRoomInfo;
 import com.jplan.memberserver.entities.Member;
 import com.jplan.memberserver.services.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class MemberController {
     }
 
     @PostMapping("/chattingroom")
-    public ResponseEntity<?> WebClientTest(@RequestBody Integer id) {
-        log.info("member server get id from chat server!" + id);
-        return new ResponseEntity<>(id, null, HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> WebClientTest(@RequestBody NewChattingRoomInfo newChattingRoomInfo) {
+        log.info("member server get id from chat server!" + newChattingRoomInfo);
+        return new ResponseEntity<>(newChattingRoomInfo, null, HttpStatus.NOT_FOUND);
     }
 }
