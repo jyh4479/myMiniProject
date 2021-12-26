@@ -1,5 +1,6 @@
 package com.jplan.kafkachatserver.services;
 
+import com.jplan.kafkachatserver.dto.NewChattingRoomInfo;
 import com.jplan.kafkachatserver.entities.ChattingRoom;
 import com.jplan.kafkachatserver.repositories.ChattingRoomRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class ChattingRoomService {
 //    private EntityManager em; --> 동시성때문에 사용하지 않는 것을 권고
 
     @Transactional(rollbackOn = {Exception.class})
-    public void createChattingRoom() {
+    public void createChattingRoom(NewChattingRoomInfo newChattingRoomInfo) {
 
 //        try {
         ChattingRoom chattingRoom = new ChattingRoom(); //채팅방 생성
@@ -32,12 +33,10 @@ public class ChattingRoomService {
 
         webClient.post()
                 .uri("/chattingroom")
-                .bodyValue(chattingRoom.getId())
+                .bodyValue(newChattingRoomInfo)
                 .retrieve()
-//                    .onStatus(HttpStatus::isError, clientResponse -> Mono.error(Exception::new))
-                .onStatus(HttpStatus::is4xxClientError, clientResponse -> Mono.error(Exception::new))
-                .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(Exception::new))
-                .bodyToMono(Integer.class)
+                .onStatus(HttpStatus::isError, clientResponse -> Mono.error(Exception::new))
+                .bodyToMono(NewChattingRoomInfo.class)
                 .block();
 
 //        } catch (Exception e) {

@@ -1,12 +1,10 @@
 package com.jplan.kafkachatserver.controllers;
 
+import com.jplan.kafkachatserver.dto.NewChattingRoomInfo;
 import com.jplan.kafkachatserver.services.ChattingRoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Log
 @CrossOrigin
@@ -19,11 +17,10 @@ public class ChattingRoomController {
 
 
     @PostMapping(value = "/test")
-    public void createChattingRoom() {
+    public void createChattingRoom(@RequestBody NewChattingRoomInfo newChattingRoomInfo) {
         try {
-            log.info("create run");
-            chattingRoomService.createChattingRoom();
-            log.info("create success");
+            log.info("new Chatting room info : " + newChattingRoomInfo);
+            chattingRoomService.createChattingRoom(newChattingRoomInfo);
         } catch (Exception e) {
             log.info("create error");
         } finally {
