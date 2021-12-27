@@ -1,5 +1,6 @@
 package com.jplan.memberserver.entities;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -35,6 +36,7 @@ public class Member {
     private String membership;
 
     @Column
+    @JsonRawValue
     private String chattingRoomList;
 
     @Builder
