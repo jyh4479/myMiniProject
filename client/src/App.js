@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {ChatAppPage, HomePage, LoginPage, MyPage, SignUpPage} from "./pages";
 import {PrivateRoute} from "./utils";
+import ChatRoomPage from "./pages/ChatRoomPage";
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
                 <Route path={'/signup'} component={SignUpPage}/>
                 <PrivateRoute path={'/mypage'} component={MyPage}/>
                 <PrivateRoute path={'/chat'} component={ChatAppPage}/>
+                <PrivateRoute path={'/chatroom'} component={ChatRoomPage}></PrivateRoute>
             </Switch>
         </Router>
     );
