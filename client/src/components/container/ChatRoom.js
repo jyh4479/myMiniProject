@@ -3,11 +3,14 @@ import SockJsClient from "react-stomp";
 import {Chat, ChatInput} from "../presentational";
 import {chatServiceApi} from "../../utils";
 import "../../styles/ChatRoom.scss"
+import MemberServiceApi from "../../utils/MemberServiceApi";
 
 const ChatRoom = props => {
 
     const [messages, setMessages] = useState([]);
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(MemberServiceApi.getMemberId());
+    // const [user, setUser] = useState(null);
+
 
     const onMessageReceived = (msg) => {
         console.log("New Message Received!!", msg);
@@ -16,7 +19,7 @@ const ChatRoom = props => {
 
     const handleMessageSubmit = (msg) => {
         chatServiceApi
-            .sendMessage(user.name, msg)
+            .sendMessage(user, msg)
             .then((res) => {
                 console.log("sent", res);
             })
@@ -27,7 +30,7 @@ const ChatRoom = props => {
 
     const onConnected = () => {
         chatServiceApi
-            .sendMessage("connect", user.name + " 님이 들어왔습니다.")
+            .sendMessage("connect", user + " 님이 들어왔습니다.")
             .then((res) => {
                 console.log("connected!", res);
             })
@@ -38,7 +41,7 @@ const ChatRoom = props => {
 
     const onDisconnected = () => {
         chatServiceApi
-            .sendMessage("disconnect", user.name + " 님이 나갔습니다.")
+            .sendMessage("disconnect", user + " 님이 나갔습니다.")
             .then((res) => {
                 console.log("disconnected!", res);
             })

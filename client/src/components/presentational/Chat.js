@@ -27,7 +27,7 @@ const Chat = props => {
                         return (
                             <li
                                 className={`ChatBubble ${
-                                    msg.author === currentUser.name ? "Send" : "Receive"
+                                    msg.author === currentUser ? "Send" : "Receive"
                                 }`}
                             >
                                 <span>{msg.author}</span>

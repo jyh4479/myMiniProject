@@ -6,7 +6,7 @@ import "../../styles/ChatApp.scss"
 const ChatApp = () => {
 
     const memberId = memberServiceApi.getMemberId()
-    const [roomList, setRoomList] = useState([])
+    const [roomList, setRoomList] = useState(null)
 
     const [messages, setMessages] = useState(null);
     // const [user, setUser] = useState(null);
@@ -19,7 +19,7 @@ const ChatApp = () => {
 
     const fetchData = async (memberId) => {
         const {chattingRoomList} = await memberServiceApi.getMemberData(memberId)
-        setRoomList(chattingRoomList)
+        setRoomList(chattingRoomList.dataList)
     }
 
     const onMessageReceived = (msg) => {
@@ -66,6 +66,12 @@ const ChatApp = () => {
                 console.log(e);
             });
     }
+
+    const makeListView = dataList => {
+        return dataList.map(item => (
+            <button onClick={() => newWindow("http://localhost:5000/chatroom", memberId)}> {item.id} </button>))
+    }
+
     const newWindow = (url, user) => {
         window.open(url, user, 'width=430,height=500,location=no,status=no,scrollbars=yes');
         return true
@@ -77,7 +83,7 @@ const ChatApp = () => {
 
 
             {roomList !== null ? (
-                <div> {roomList} </div>
+                <div> {makeListView(roomList)} </div>
             ) : (
                 <div> List가 없습니다. </div>
             )}
