@@ -28,7 +28,10 @@ public class ChatController {
     public void sendMessage(@RequestBody Message message) {
         log.info("Produce message : " + message.toString());
         message.setTimestamp(LocalDateTime.now().toString());
+
+        //해당 부분에서 받은 메세지가 누구로부터 왔고 어떤 was(서버)에 접속한 사용자들에게 전달되어야하는지 판단해야한다고 생각
         try {
+            //현재는 한가지 토픽만 있으므로 아래와같은 코드로 동작
             kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC, message).get();
 //            kafkaTemplate.send("PUSHTEST", message).get();
         } catch (Exception e) {
@@ -36,15 +39,15 @@ public class ChatController {
         }
     }
 
-    @PostMapping(value = "/createTopic")
-    public void createTopic() {
-        try {
-//            kafkaTemplate;
-            System.out.println("HI");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    @PostMapping(value = "/createTopic")
+//    public void createTopic() {
+//        try {
+////            kafkaTemplate;
+//            System.out.println("HI");
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 //    @PostMapping(value = "/test")
 //    public void sendTestSignal() {
@@ -56,11 +59,12 @@ public class ChatController {
 //        }
 //    }
 
-    @MessageMapping("/sendMessage")
-    @SendTo("/topic/group")
-    public Message broadcastGroupMessage(@Payload Message message) {
-        return message;
-    }
+//    @MessageMapping("/sendMessage")
+//    @SendTo("/topic/group")
+//    public Message broadcastGroupMessage(@Payload Message message) {
+//        log.info("send message check!");
+//        return message;
+//    }
 
 
 }

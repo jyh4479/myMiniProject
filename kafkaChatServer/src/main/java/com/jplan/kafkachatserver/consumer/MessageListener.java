@@ -21,6 +21,9 @@ public class MessageListener {
     )
     public void listen(Message message) {
         log.info("sending via kafka listener..");
-        template.convertAndSend("/topic/group", message);
+        Long check = message.getFrom();
+        log.info(String.valueOf(check));
+        //해당 경로를 다이나믹하게 바꾸자
+        template.convertAndSend("/topic/group/" + message.getFrom(), message);
     }
 }

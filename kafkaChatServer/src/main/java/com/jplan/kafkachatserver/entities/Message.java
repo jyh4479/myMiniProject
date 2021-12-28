@@ -6,13 +6,23 @@ public class Message implements Serializable {
     private String author;
     private String content;
     private String timestamp;
+    private Long from;
 
     public Message() {
     }
 
-    public Message(String author, String content) {
+    public Message(String author, String content, Long from) {
         this.author = author;
         this.content = content;
+        this.from = from;
+    }
+
+    public Long getFrom() {
+        return from;
+    }
+
+    public void setFrom(Long from) {
+        this.from = from;
     }
 
     public String getAuthor() {
@@ -45,6 +55,7 @@ public class Message implements Serializable {
                 "author='" + author + '\'' +
                 ", content='" + content + '\'' +
                 ", timestamp='" + timestamp + '\'' +
+                ", from='" + from + '\'' +
                 '}';
     }
 }
