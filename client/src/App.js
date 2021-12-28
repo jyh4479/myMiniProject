@@ -23,7 +23,7 @@ const App = () => {
                 <Route path={'/signup'} component={SignUpPage}/>
                 <PrivateRoute path={'/mypage'} component={MyPage}/>
                 <PrivateRoute path={'/chat'} component={ChatAppPage}/>
-                <PrivateRoute path={'/chatroom'} component={ChatRoomPage}></PrivateRoute>
+                <PrivateRoute path={'/chatroom/:roomId'} component={ChatRoomPage}/>
             </Switch>
         </Router>
     );

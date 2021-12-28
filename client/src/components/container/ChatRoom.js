@@ -7,6 +7,7 @@ import MemberServiceApi from "../../utils/MemberServiceApi";
 
 const ChatRoom = props => {
 
+    const {roomId} = props.match.params
     const [messages, setMessages] = useState([]);
     const [user, setUser] = useState(MemberServiceApi.getMemberId());
     // const [user, setUser] = useState(null);
@@ -19,7 +20,7 @@ const ChatRoom = props => {
 
     const handleMessageSubmit = (msg) => {
         chatServiceApi
-            .sendMessage(user, msg)
+            .sendMessage(user, msg, roomId)
             .then((res) => {
                 console.log("sent", res);
             })
@@ -55,7 +56,7 @@ const ChatRoom = props => {
             {/*<button onClick={() => newWindow("http://localhost:5000/", user)}>button</button>*/}
             <SockJsClient
                 url={"http://localhost:2821/test/"}
-                topics={["/topic/group"]}
+                topics={[`/topic/group/${roomId}`]}
                 onConnect={onConnected}
                 onDisconnect={onDisconnected}
                 onMessage={(msg) => onMessageReceived(msg)}
