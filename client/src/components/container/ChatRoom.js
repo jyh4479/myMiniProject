@@ -31,7 +31,7 @@ const ChatRoom = props => {
 
     const onConnected = () => {
         chatServiceApi
-            .sendMessage("connect", user + " 님이 들어왔습니다.")
+            .sendMessage("connect", user + " 님이 들어왔습니다.", roomId)
             .then((res) => {
                 console.log("connected!", res);
             })
@@ -42,7 +42,7 @@ const ChatRoom = props => {
 
     const onDisconnected = () => {
         chatServiceApi
-            .sendMessage("disconnect", user + " 님이 나갔습니다.")
+            .sendMessage("disconnect", user + " 님이 나갔습니다.", roomId)
             .then((res) => {
                 console.log("disconnected!", res);
             })

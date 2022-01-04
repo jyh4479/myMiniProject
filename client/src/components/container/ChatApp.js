@@ -6,7 +6,7 @@ import "../../styles/ChatApp.scss"
 const ChatApp = () => {
 
     const memberId = memberServiceApi.getMemberId()
-    const [roomList, setRoomList] = useState(null)
+    const [roomList, setRoomList] = useState([])
 
     // const [messages, setMessages] = useState(null);
     // const [user, setUser] = useState(null);
@@ -69,8 +69,8 @@ const ChatApp = () => {
 
     const makeListView = dataList => {
         return dataList.map(item => (
-            <button
-                onClick={() => newWindow(`http://localhost:5000/chatroom/${item.id}`, memberId)}> {item.id} </button>))
+            <button key={item.id}
+                    onClick={() => newWindow(`http://localhost:5000/chatroom/${item.id}`, memberId)}> {item.id} </button>))
     }
 
     const newWindow = (url, user) => {

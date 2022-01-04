@@ -27,7 +27,7 @@ const Home = props => {
 
     return (
         <>
-            <GlobalNavigationBar history={props.history}/>
+            {/*<GlobalNavigationBar history={props.history}/>*/}
             <Row>
                 {loginState ? <div>{memberId}님 환영합니다.</div> :
                     <BasicButton type={'login'} message={'로그인'} onClick={signIn}/>}

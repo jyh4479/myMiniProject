@@ -37,10 +37,14 @@ public class Member {
 
     @Column
     @JsonRawValue
+    private String friendList;
+
+    @Column
+    @JsonRawValue
     private String chattingRoomList;
 
     @Builder
-    public Member(String id, String name, String phone, String email, String birth, String password, String membership, String chattingRoomList) {
+    public Member(String id, String name, String phone, String email, String birth, String password, String membership, String friendList, String chattingRoomList) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -48,6 +52,7 @@ public class Member {
         this.birth = birth;
         this.password = password;
         this.membership = membership;
+        this.friendList = friendList;
         this.chattingRoomList = chattingRoomList;
     }
 }

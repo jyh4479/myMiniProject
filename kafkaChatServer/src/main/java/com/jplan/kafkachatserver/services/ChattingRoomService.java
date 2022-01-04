@@ -44,5 +44,10 @@ public class ChattingRoomService {
 //        }
         //webflux 를 통한 다른 service 와의 통신 생각해기
         //추가적으로 여러 동시에 여러 스레드가 동시에 save 에 접근하는 경우 어떻게 동작할까?
+
+        //1차 캐시는 쓰레드별로 메모리를 가지고있다.
+        //Entity Manager는 autowired로 안됨
+        //@PersistenceContext
+        //QueryDSL 찾아보기
     }
 }
