@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {memberServiceApi} from "../../utils";
+import {ToolTip} from "../presentational";
+import "../../styles/FriendList.scss"
 
 const FriendList = () => {
 
@@ -19,7 +21,9 @@ const FriendList = () => {
 
     const makeListView = myFriendList => {
         return myFriendList.map(item => (
-                <div>{item.id}</div>
+                <ToolTip message="친구추가" direction="right">
+                    <div className={'friendList'}>{item.id}</div>
+                </ToolTip>
             )
         )
     }
