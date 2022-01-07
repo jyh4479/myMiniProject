@@ -19,4 +19,20 @@ const getMemberData = async (memberId) => {
     return res.data
 }
 
-export default {getMemberId, getMemberData, isToken}
+const addFriend = async (myId, friendId) => {
+
+    const body = {myId: myId, friendId: friendId,}
+    let res
+
+    try {
+        res = await axios.post(baseUrl + "friend", body)
+    } catch (e) {
+        console.log("Check Info {}, {}", body, res)
+    }
+
+    // 일단 true 반환
+    return true
+
+}
+
+export default {getMemberId, getMemberData, isToken, addFriend}

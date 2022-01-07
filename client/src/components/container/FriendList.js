@@ -19,9 +19,15 @@ const FriendList = () => {
         setMyFriendList(friendList.dataList)
     }
 
+    const addFriend = (myId, friendId) => {
+        memberServiceApi.addFriend(myId, friendId).then(r => {
+            console.log("run add data")
+        })
+    }
+
     const makeListView = myFriendList => {
         return myFriendList.map(item => (
-                <ToolTip message="친구추가" direction="right">
+                <ToolTip message="친구추가" onClick={addFriend(memberId, item.id)} direction="right">
                     <div className={'friendList'}>{item.id}</div>
                 </ToolTip>
             )
