@@ -1,5 +1,6 @@
 package com.jplan.memberserver.controllers;
 
+import com.jplan.memberserver.dto.AddFriendInfo;
 import com.jplan.memberserver.dto.NewChattingRoomInfo;
 import com.jplan.memberserver.entities.Member;
 import com.jplan.memberserver.services.MemberService;
@@ -20,9 +21,19 @@ public class MemberController {
     @GetMapping("/member")
     public Member getMemberData(@RequestParam("id") String id) {
         log.info("run getmemberData");
-        Member member = memberService.getMemberData(id);
-        System.out.println(member);
-        return member;
+        return memberService.getMemberData(id);
+    }
+
+    @PostMapping("/friend")
+    public ResponseEntity<?> addFriend(@RequestBody AddFriendInfo addFriendInfo) {
+        log.info("run addFriend");
+        try {
+            memberService.addFriend(addFriendInfo);
+        } catch (Exception e) {
+            log.warning("catch error in addFriend controller");
+            return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(null, null, HttpStatus.OK);
     }
 
     @PostMapping("/chattingroom")
