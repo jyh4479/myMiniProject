@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {ChatAppPage, FriendListPage, HomePage, LoginPage, MyPage, SignUpPage} from "./pages";
+import {ChatAppPage, FriendListPage, HomePage, LoginPage, MyPage, SearchListPage, SignUpPage} from "./pages";
 import {PrivateRoute} from "./utils";
 import ChatRoomPage from "./pages/ChatRoomPage";
 import {GlobalNavigationBar} from "./components/presentational";
@@ -26,6 +26,7 @@ const App = props => {
                 <PrivateRoute path={'/mypage'} component={MyPage}/>
                 <PrivateRoute path={'/friends'} component={FriendListPage}/>
                 <PrivateRoute path={'/chat'} component={ChatAppPage}/>
+                <PrivateRoute path={'/search'} component={SearchListPage}/>
                 <PrivateRoute path={'/chatroom/:roomId'} component={ChatRoomPage}/>
             </Switch>
         </Router>

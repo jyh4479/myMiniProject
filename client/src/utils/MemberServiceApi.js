@@ -19,9 +19,14 @@ const getMemberData = async (memberId) => {
     return res.data
 }
 
+const getMembersData = async () => {
+    const res = await axios.get(baseUrl + "members")
+    return res.data
+}
+
 const addFriend = async (myId, friendId) => {
 
-    const body = {myId: myId, friendId: friendId,}
+    const body = {memberId: myId, friendId: friendId,}
     let res
 
     try {
@@ -35,4 +40,4 @@ const addFriend = async (myId, friendId) => {
 
 }
 
-export default {getMemberId, getMemberData, isToken, addFriend}
+export default {getMemberId, getMemberData, isToken, addFriend, getMembersData}

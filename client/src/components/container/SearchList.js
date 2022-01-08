@@ -1,22 +1,21 @@
 import React, {useEffect, useState} from 'react'
 import {memberServiceApi} from "../../utils";
 import {ToolTip} from "../presentational";
-import "../../styles/FriendList.scss"
 
-const FriendList = () => {
+const SearchList = props => {
 
     const memberId = memberServiceApi.getMemberId()
-    const [myFriendList, setMyFriendList] = useState([])
+    const [allMemberList, setAllMemberList] = useState([])
 
     useEffect(() => {
-        fetchData(memberId).then(r => {
+        fetchData().then(r => {
             console.log("run fetchData")
         })
     }, [memberId])
 
-    const fetchData = async (memberId) => {
-        const {friendList} = await memberServiceApi.getMemberData(memberId)
-        setMyFriendList(friendList.dataList)
+    const fetchData = async () => {
+        const memberList = await memberServiceApi.getMembersData()
+        setAllMemberList(memberList)
     }
 
     const addFriend = (myId, friendId) => {
@@ -25,24 +24,26 @@ const FriendList = () => {
         })
     }
 
-    const makeListView = myFriendList => {
-        return myFriendList.map(item => (
+    const makeListView = memberList => {
+        const view = []
+        memberList.forEach(item => {
+            if (item.id !== memberId) view.push(
                 <ToolTip message="친구추가" onClick={() => addFriend(memberId, item.id)} direction="right">
                     <div className={'friendList'}>{item.id}</div>
                 </ToolTip>
             )
-        )
+        })
+        return view
     }
 
     return (
         <>
-            {myFriendList !== null ? (
-                <div> {makeListView(myFriendList)} </div>
+            {allMemberList !== null ? (
+                <div> {makeListView(allMemberList)} </div>
             ) : (
                 <div> List가 없습니다. </div>
             )}
         </>
     )
 }
-
-export default FriendList
+export default SearchList
