@@ -3,6 +3,7 @@ package com.jplan.memberserver.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jplan.memberserver.controllers.MemberController;
 import com.jplan.memberserver.dto.AddFriendInfo;
+import com.jplan.memberserver.entities.Member;
 import com.jplan.memberserver.services.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,15 +32,24 @@ public class MemberControllerTest {
     @Test
     @DisplayName("Get One Member Controller Test")
     public void MemberControllerResponseTest() throws Exception {
+        Member member = Member.builder()
+                .id("mock")
+                .name("mock")
+                .phone("mock")
+                .email("mock")
+                .birth("mock")
+                .password("mock")
+                .membership("mock")
+                .build();
 
-        when(memberService.getMemberData(anyString())).thenThrow(Exception.class);
-//        when(memberService.getMemberData(anyString())).thenReturn(Exception.class);
+//        when(memberService.getMemberData(anyString())).thenThrow(Exception.class);
+        when(memberService.getMemberData(anyString())).thenReturn(member);
 
         mvc.perform(get("/jplan/memberservice/member")
                 .param("id", "jyh4479"))
                 .andExpect(status().isOk());
 
-//        verify(memberService).getMemberData("jyh4479");
+        verify(memberService).getMemberData("jyh4479");
     }
 
     @Test

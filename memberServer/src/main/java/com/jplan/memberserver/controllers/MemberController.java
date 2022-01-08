@@ -19,7 +19,7 @@ public class MemberController {
 
     @GetMapping("/member")
     public ResponseEntity<?> getMemberData(@RequestParam("id") String id) {
-        log.info("run getmemberData");
+        log.info("run getmemberData controller");
         try {
             return new ResponseEntity<>(memberService.getMemberData(id), null, HttpStatus.OK);
         } catch (Exception e) {
@@ -28,9 +28,20 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/members")
+    public ResponseEntity<?> getMembersData() {
+        log.info("run getMembersData controller");
+        try {
+            return new ResponseEntity<>(memberService.getMembersData(), null, HttpStatus.OK);
+        } catch (Exception e) {
+            log.warning("catch in error getMembesrData controller");
+            return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/friend")
     public ResponseEntity<?> addFriend(@RequestBody AddFriendInfo addFriendInfo) {
-        log.info("run addFriend");
+        log.info("run addFriend controller " + addFriendInfo.getFriendId() + " " + addFriendInfo.getMemberId());
         try {
             memberService.addFriend(addFriendInfo);
         } catch (Exception e) {
