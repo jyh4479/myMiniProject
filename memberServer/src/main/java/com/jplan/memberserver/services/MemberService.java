@@ -16,8 +16,13 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Member getMemberData(String id) {
-        return memberRepository.getById(id);
+    public Member getMemberData(String id) throws Exception {
+        try {
+            return memberRepository.getById(id);
+        } catch (Exception e) {
+            throw new Exception("Repository error");
+        }
+
     }
 
     @Transactional(rollbackOn = Exception.class)

@@ -2,7 +2,6 @@ package com.jplan.memberserver.controllers;
 
 import com.jplan.memberserver.dto.AddFriendInfo;
 import com.jplan.memberserver.dto.NewChattingRoomInfo;
-import com.jplan.memberserver.entities.Member;
 import com.jplan.memberserver.services.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -19,9 +18,14 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/member")
-    public Member getMemberData(@RequestParam("id") String id) {
+    public ResponseEntity<?> getMemberData(@RequestParam("id") String id) {
         log.info("run getmemberData");
-        return memberService.getMemberData(id);
+        try {
+            return new ResponseEntity<>(memberService.getMemberData(id), null, HttpStatus.OK);
+        } catch (Exception e) {
+            log.warning("catch in error getMemberData controller");
+            return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/friend")
