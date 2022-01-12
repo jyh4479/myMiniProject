@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {memberServiceApi} from "../../utils";
 import {ToolTip} from "../presentational";
+import "../../styles/SearchList.scss"
 
 const SearchList = props => {
 
@@ -29,7 +30,7 @@ const SearchList = props => {
         memberList.forEach(item => {
             if (item.id !== memberId) view.push(
                 <ToolTip message="친구추가" onClick={() => addFriend(memberId, item.id)} direction="right">
-                    <div className={'friendList'}>{item.id}</div>
+                    <div className={'searchList'}>{item.id}</div>
                 </ToolTip>
             )
         })
@@ -39,7 +40,7 @@ const SearchList = props => {
     return (
         <>
             {allMemberList !== null ? (
-                <div> {makeListView(allMemberList)} </div>
+                <div className={'searchListContainer'}> {makeListView(allMemberList)} </div>
             ) : (
                 <div> List가 없습니다. </div>
             )}

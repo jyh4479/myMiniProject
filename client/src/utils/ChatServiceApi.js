@@ -20,6 +20,20 @@ const ChatServiceApi = {
             headers: {"Content-Type": "application/json"},
         });
     },
+
+    addChatRoom: async (myId, friendId) => {
+        const body = {memberId: myId, friendId: friendId,}
+        let res
+
+        try {
+            res = await api.post("chatroom", body)
+        } catch (e) {
+            console.log("Check Info {}, {}", body, res)
+        }
+        return true
+    }
+
+
 };
 
 export default ChatServiceApi;

@@ -34,10 +34,8 @@ const addFriend = async (myId, friendId) => {
     } catch (e) {
         console.log("Check Info {}, {}", body, res)
     }
-
     // 일단 true 반환
     return true
-
 }
 
 export default {getMemberId, getMemberData, isToken, addFriend, getMembersData}

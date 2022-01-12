@@ -8,6 +8,11 @@ const FriendList = () => {
     const memberId = memberServiceApi.getMemberId()
     const [myFriendList, setMyFriendList] = useState([])
 
+    // document.addEventListener("contextmenu", (event) => {
+    //     console.log("ggg")
+    //     event.preventDefault()
+    // })
+
     useEffect(() => {
         fetchData(memberId).then(r => {
             console.log("run fetchData")
@@ -17,17 +22,18 @@ const FriendList = () => {
     const fetchData = async (memberId) => {
         const {friendList} = await memberServiceApi.getMemberData(memberId)
         setMyFriendList(friendList.dataList)
+        console.log(friendList)
     }
 
-    const addFriend = (myId, friendId) => {
-        memberServiceApi.addFriend(myId, friendId).then(r => {
+    const addChatRoom = (myId, friendId) => {
+        memberServiceApi.addChatRoom(myId, friendId).then(r => {
             console.log("run add data")
         })
     }
 
     const makeListView = myFriendList => {
         return myFriendList.map(item => (
-                <ToolTip message="친구추가" onClick={() => addFriend(memberId, item.id)} direction="right">
+                <ToolTip message="채팅방 만들기" onClick={() => addChatRoom(memberId, item.id)} direction="right">
                     <div className={'friendList'}>{item.id}</div>
                 </ToolTip>
             )
@@ -37,7 +43,9 @@ const FriendList = () => {
     return (
         <>
             {myFriendList !== null ? (
-                <div> {makeListView(myFriendList)} </div>
+                <div className={'friendListContainer'}>
+                    {makeListView(myFriendList)}
+                </div>
             ) : (
                 <div> List가 없습니다. </div>
             )}
