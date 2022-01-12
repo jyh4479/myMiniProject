@@ -4,6 +4,7 @@ import com.jplan.kafkachatserver.constants.KafkaConstants;
 import com.jplan.kafkachatserver.entities.Message;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;

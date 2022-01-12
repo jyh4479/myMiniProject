@@ -1,6 +1,9 @@
 package com.jplan.memberserver.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jplan.memberserver.dto.AddFriendInfo;
+import com.jplan.memberserver.dto.NewFriendInfo;
 import com.jplan.memberserver.entities.Member;
 import com.jplan.memberserver.repositories.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,21 +43,30 @@ public class MemberService {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public void addFriend(AddFriendInfo addFriendInfo) throws ParseException {
+    public void addFriend(AddFriendInfo addFriendInfo) throws ParseException, JsonProcessingException {
         log.info("run addFriend service");
         // 1. memberId 와 friendId 검증
         // 2. memberId friendList에 이미 friendId가 포함되어있는지 검증
         // 3.
         Member member = memberRepository.getById(addFriendInfo.getMemberId());
+        Member newFriend = memberRepository.getById(addFriendInfo.getFriendId());
+
+        NewFriendInfo newFriendInfo = new NewFriendInfo(
+                newFriend.getId(),
+                newFriend.getName(),
+                newFriend.getPhone(),
+                newFriend.getEmail(),
+                newFriend.getBirth()
+        );
 
         if (member.getFriendList() == null) {
             log.info("null");
             JSONObject friendList = new JSONObject();
-            JSONObject jsonObject = new JSONObject();
+//            JSONObject jsonObject = new JSONObject();
             JSONArray jsonArray = new JSONArray();
 
-            jsonObject.put("id", addFriendInfo.getFriendId());
-            jsonArray.add(jsonObject);
+//            jsonObject.put("id", addFriendInfo.getFriendId());
+            jsonArray.add(newFriend);
             friendList.put("dataList", jsonArray);
 
             member.setFriendList(friendList.toJSONString());
@@ -62,15 +74,27 @@ public class MemberService {
             memberRepository.save(member);
         } else {
             log.info("not null");
+            //Entity -> String -> JSON
             JSONParser jsonParser = new JSONParser();
+            log.info("not null2");
+            ObjectMapper mapper = new ObjectMapper();
+            log.info("not null3");
+            //Entity to String
+            System.out.println(newFriendInfo);
+            String friendString = mapper.writeValueAsString(newFriendInfo);
+            log.info("not null4");
+            //String to JSON
+            Object friendObject = jsonParser.parse(friendString);
+            JSONObject friendJson = (JSONObject) friendObject;
+
+            log.info("not null5");
             Object obj = jsonParser.parse(member.getFriendList());
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray jsonArray = (JSONArray) jsonObject.get("dataList");
 
-            JSONObject newFriend = new JSONObject();
+
             JSONObject friendList = new JSONObject();
-            newFriend.put("id", addFriendInfo.getFriendId());
-            jsonArray.add(newFriend);
+            jsonArray.add(friendJson);
             friendList.put("dataList", jsonArray);
 
             member.setFriendList(friendList.toJSONString());
