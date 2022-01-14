@@ -29,8 +29,8 @@ const SearchList = props => {
         const view = []
         memberList.forEach(item => {
             if (item.id !== memberId) view.push(
-                <ToolTip message="친구추가" onClick={() => addFriend(memberId, item.id)} direction="right">
-                    <div className={'searchList'}>{item.id}</div>
+                <ToolTip id={item.id} message="친구추가" onClick={() => addFriend(memberId, item.id)} direction="right">
+                    <div id={item.id} className={'searchList'}>{item.name}</div>
                 </ToolTip>
             )
         })

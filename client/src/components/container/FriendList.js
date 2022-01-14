@@ -21,7 +21,8 @@ const FriendList = () => {
 
     const fetchData = async (memberId) => {
         const {friendList} = await memberServiceApi.getMemberData(memberId)
-        setMyFriendList(friendList.dataList)
+        friendList ? setMyFriendList(friendList.dataList) : setMyFriendList([])
+
         console.log(friendList)
     }
 
@@ -33,8 +34,8 @@ const FriendList = () => {
 
     const makeListView = myFriendList => {
         return myFriendList.map(item => (
-                <ToolTip message="채팅방 만들기" onClick={() => addChatRoom(memberId, item.id)} direction="right">
-                    <div className={'friendList'}>{item.id}</div>
+                <ToolTip id={item.id} message="채팅방 만들기" onClick={() => addChatRoom(memberId, item.id)} direction="right">
+                    <div id={item.id} className={'friendList'}>{item.name}</div>
                 </ToolTip>
             )
         )

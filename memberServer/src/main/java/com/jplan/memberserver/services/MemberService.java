@@ -13,8 +13,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Log
@@ -24,6 +24,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    @Transactional(readOnly = true)
     public Member getMemberData(String id) throws Exception {
         log.info("run getmemberData service");
         try {
@@ -33,6 +34,7 @@ public class MemberService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<Member> getMembersData() throws Exception {
         log.info("run getmembersData service");
         try {
@@ -42,12 +44,10 @@ public class MemberService {
         }
     }
 
-    @Transactional(rollbackOn = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public void addFriend(AddFriendInfo addFriendInfo) throws ParseException, JsonProcessingException {
         log.info("run addFriend service");
-        // 1. memberId 와 friendId 검증
-        // 2. memberId friendList에 이미 friendId가 포함되어있는지 검증
-        // 3.
+
         Member member = memberRepository.getById(addFriendInfo.getMemberId());
         Member newFriend = memberRepository.getById(addFriendInfo.getFriendId());
 
@@ -59,35 +59,38 @@ public class MemberService {
                 newFriend.getBirth()
         );
 
+        //Entity -> String -> JSON
+        JSONParser jsonParser = new JSONParser();
+        ObjectMapper mapper = new ObjectMapper();
+
+
+        //해당 밸리데이션 체크 필요
+//        if (member.getFriendList().equals("null") || member.getFriendList() == null) {
         if (member.getFriendList() == null) {
             log.info("null");
-            JSONObject friendList = new JSONObject();
-//            JSONObject jsonObject = new JSONObject();
-            JSONArray jsonArray = new JSONArray();
-
-//            jsonObject.put("id", addFriendInfo.getFriendId());
-            jsonArray.add(newFriend);
-            friendList.put("dataList", jsonArray);
-
-            member.setFriendList(friendList.toJSONString());
-
-            memberRepository.save(member);
-        } else {
-            log.info("not null");
-            //Entity -> String -> JSON
-            JSONParser jsonParser = new JSONParser();
-            log.info("not null2");
-            ObjectMapper mapper = new ObjectMapper();
-            log.info("not null3");
             //Entity to String
-            System.out.println(newFriendInfo);
             String friendString = mapper.writeValueAsString(newFriendInfo);
-            log.info("not null4");
             //String to JSON
             Object friendObject = jsonParser.parse(friendString);
             JSONObject friendJson = (JSONObject) friendObject;
 
-            log.info("not null5");
+            JSONArray jsonArray = new JSONArray();
+
+            JSONObject friendList = new JSONObject();
+            jsonArray.add(friendJson);
+            friendList.put("dataList", jsonArray);
+
+            member.setFriendList(friendList.toJSONString());
+
+        } else {
+            log.info("not null");
+            log.info(member.getFriendList());
+            //Entity to String
+            String friendString = mapper.writeValueAsString(newFriendInfo);
+            //String to JSON
+            Object friendObject = jsonParser.parse(friendString);
+            JSONObject friendJson = (JSONObject) friendObject;
+
             Object obj = jsonParser.parse(member.getFriendList());
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray jsonArray = (JSONArray) jsonObject.get("dataList");
@@ -99,8 +102,8 @@ public class MemberService {
 
             member.setFriendList(friendList.toJSONString());
 
-            memberRepository.save(member);
         }
+        memberRepository.save(member);
 
         log.info(addFriendInfo.getFriendId());
         log.info(addFriendInfo.getMemberId());

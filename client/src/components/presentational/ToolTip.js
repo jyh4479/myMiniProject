@@ -4,7 +4,7 @@ import '../../styles/ToolTip.scss'
 const ToolTip = props => {
     //https://www.daleseo.com/css-position-absolute-tooltip/
 
-    const {children, message, onClick} = props
+    const {children, message, onClick, id} = props
     // const [mouseX, setMouseX] = useState(0)
     // const toolTipLocation = useRef()
     //
@@ -33,9 +33,9 @@ const ToolTip = props => {
     // }
 
     return (
-        <div className={'container'}>
+        <div id={id} className={'container'}>
             {children}
-            <button className={'content boxFade'} onClick={onClick}>{message}</button>
+            <button id={id} className={'content boxFade'} onClick={onClick}>{message}</button>
         </div>
     )
 }

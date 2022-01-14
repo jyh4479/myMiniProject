@@ -17,7 +17,7 @@ const GlobalNavigationBar = () => {
     const makeMenuView = itemList => {
         return itemList.map(icon =>
                 <Link to={icon[1]}>
-                    <BasicButton type={'menu'} className={'globalMenuButton'}>
+                    <BasicButton id={icon[1]} type={'menu'} className={'globalMenuButton'}>
                         <FontAwesomeIcon
                             icon={icon[0]}
                             size={"2x"}/></BasicButton>

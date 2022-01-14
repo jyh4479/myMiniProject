@@ -75,7 +75,7 @@ const ChatApp = () => {
 
     const newWindow = (url, user) => {
         console.log(url)
-        window.open(url, user, 'width=430,height=500,location=no,status=no,scrollbars=yes');
+        window.open(url, user, 'width=430,height=670,location=no,status=no,scrollbars=yes');
         return true
     }
 
