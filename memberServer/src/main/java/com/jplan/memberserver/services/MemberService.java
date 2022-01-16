@@ -66,46 +66,28 @@ public class MemberService {
 
         //해당 밸리데이션 체크 필요
 //        if (member.getFriendList().equals("null") || member.getFriendList() == null) {
-        if (member.getFriendList() == null) {
-            log.info("null");
-            //Entity to String
-            String friendString = mapper.writeValueAsString(newFriendInfo);
-            //String to JSON
-            Object friendObject = jsonParser.parse(friendString);
-            JSONObject friendJson = (JSONObject) friendObject;
 
-            JSONArray jsonArray = new JSONArray();
+        log.info("null");
+        //Entity to String
+        String friendString = mapper.writeValueAsString(newFriendInfo);
+        //String to JSON
+        Object friendObject = jsonParser.parse(friendString);
+        JSONObject friendJson = (JSONObject) friendObject;
 
-            JSONObject friendList = new JSONObject();
-            jsonArray.add(friendJson);
-            friendList.put("dataList", jsonArray);
-
-            member.setFriendList(friendList.toJSONString());
-
-        } else {
-            log.info("not null");
-            log.info(member.getFriendList());
-            //Entity to String
-            String friendString = mapper.writeValueAsString(newFriendInfo);
-            //String to JSON
-            Object friendObject = jsonParser.parse(friendString);
-            JSONObject friendJson = (JSONObject) friendObject;
-
+        JSONArray jsonArray;
+        if (member.getFriendList() == null) jsonArray = new JSONArray();
+        else {
             Object obj = jsonParser.parse(member.getFriendList());
             JSONObject jsonObject = (JSONObject) obj;
-            JSONArray jsonArray = (JSONArray) jsonObject.get("dataList");
-
-
-            JSONObject friendList = new JSONObject();
-            jsonArray.add(friendJson);
-            friendList.put("dataList", jsonArray);
-
-            member.setFriendList(friendList.toJSONString());
-
+            jsonArray = (JSONArray) jsonObject.get("dataList");
         }
-        memberRepository.save(member);
 
-        log.info(addFriendInfo.getFriendId());
-        log.info(addFriendInfo.getMemberId());
+        JSONObject friendList = new JSONObject();
+
+        jsonArray.add(friendJson);
+        friendList.put("dataList", jsonArray);
+
+        member.setFriendList(friendList.toJSONString());
+        memberRepository.save(member);
     }
 }

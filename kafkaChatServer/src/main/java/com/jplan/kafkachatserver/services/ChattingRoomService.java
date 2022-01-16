@@ -1,6 +1,7 @@
 package com.jplan.kafkachatserver.services;
 
 import com.jplan.kafkachatserver.dto.NewChattingRoomInfo;
+import com.jplan.kafkachatserver.dto.Member;
 import com.jplan.kafkachatserver.entities.ChattingRoom;
 import com.jplan.kafkachatserver.repositories.ChattingRoomRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Log
 @Service
@@ -25,12 +27,17 @@ public class ChattingRoomService {
 //    private EntityManager em; --> 동시성때문에 사용하지 않는 것을 권고
 
     @Transactional(rollbackOn = {Exception.class})
-    public void createChattingRoom(NewChattingRoomInfo newChattingRoomInfo) {
+    public void createChattingRoom(List<Member> memberList) {
 
 //        try {
         ChattingRoom chattingRoom = new ChattingRoom(); //채팅방 생성
         chattingRoomRepository.save(chattingRoom); //auto 로 증가하는 id 값이 언제 결정되는지 다시 알아보기
 
+        NewChattingRoomInfo newChattingRoomInfo = new NewChattingRoomInfo();
+        newChattingRoomInfo.setId(chattingRoom.getId());
+        newChattingRoomInfo.setMemberList(memberList);
+
+        log.info("check entity! " + newChattingRoomInfo);
         webClient.post()
                 .uri("/chattingroom")
                 .bodyValue(newChattingRoomInfo)

@@ -50,10 +50,4 @@ public class MemberController {
         }
         return new ResponseEntity<>(null, null, HttpStatus.OK);
     }
-
-    @PostMapping("/chattingroom")
-    public ResponseEntity<?> WebClientTest(@RequestBody NewChattingRoomInfo newChattingRoomInfo) {
-        log.info("member server get id from chat server!" + newChattingRoomInfo);
-        return new ResponseEntity<>(newChattingRoomInfo, null, HttpStatus.NOT_FOUND);
-    }
 }
