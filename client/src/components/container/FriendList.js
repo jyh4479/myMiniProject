@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {memberServiceApi} from "../../utils";
 import {ToolTip} from "../presentational";
 import "../../styles/FriendList.scss"
+import ChatServiceApi from "../../utils/ChatServiceApi";
 
 const FriendList = () => {
 
@@ -27,7 +28,7 @@ const FriendList = () => {
     }
 
     const addChatRoom = (myId, friendId) => {
-        memberServiceApi.addChatRoom(myId, friendId).then(r => {
+        ChatServiceApi.addChatRoom(myId, friendId).then(r => {
             console.log("run add data")
         })
     }

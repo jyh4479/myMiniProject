@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const api = Axios.create({
-    baseURL: "http://localhost:2821/kafka",
+    baseURL: "http://localhost:2821/kafka/",
 });
 
 const ChatServiceApi = {
@@ -16,17 +16,17 @@ const ChatServiceApi = {
             content: text,
             from: id,
         };
-        return api.post(`/publish`, msg, {
+        return api.post(`publish`, msg, {
             headers: {"Content-Type": "application/json"},
         });
     },
 
     addChatRoom: async (myId, friendId) => {
-        const body = {memberId: myId, friendId: friendId,}
+        const body = [{"id": myId}, {"id": friendId}]
         let res
 
         try {
-            res = await api.post("chatroom", body)
+            res = await api.post(`chatroom`, body)
         } catch (e) {
             console.log("Check Info {}, {}", body, res)
         }
