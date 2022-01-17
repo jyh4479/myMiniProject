@@ -19,7 +19,8 @@ const ChatApp = () => {
 
     const fetchData = async (memberId) => {
         const {chattingRoomList} = await memberServiceApi.getMemberData(memberId)
-        setRoomList(chattingRoomList.dataList)
+        chattingRoomList ? setRoomList(chattingRoomList.dataList) : setRoomList([])
+        // setRoomList(chattingRoomList.dataList)
     }
 
     // const onMessageReceived = (msg) => {
