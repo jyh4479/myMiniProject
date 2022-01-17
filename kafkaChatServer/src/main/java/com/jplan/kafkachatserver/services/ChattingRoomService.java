@@ -1,7 +1,7 @@
 package com.jplan.kafkachatserver.services;
 
-import com.jplan.kafkachatserver.dto.NewChattingRoomInfo;
 import com.jplan.kafkachatserver.dto.Member;
+import com.jplan.kafkachatserver.dto.NewChattingRoomInfo;
 import com.jplan.kafkachatserver.entities.ChattingRoom;
 import com.jplan.kafkachatserver.repositories.ChattingRoomRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class ChattingRoomService {
                 .bodyValue(newChattingRoomInfo)
                 .retrieve()
                 .onStatus(HttpStatus::isError, clientResponse -> Mono.error(Exception::new))
-                .bodyToMono(NewChattingRoomInfo.class)
+                .bodyToMono(boolean.class)
                 .block();
 
 //        } catch (Exception e) {

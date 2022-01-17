@@ -4,6 +4,7 @@ import com.jplan.memberserver.dto.NewChattingRoomInfo;
 import com.jplan.memberserver.services.ChattingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,11 +21,13 @@ public class ChattingController {
     private final ChattingService chattingService;
 
     @PostMapping("/chattingroom")
-    public ResponseEntity<?> WebClientTest(@RequestBody NewChattingRoomInfo newChattingRoomInfo) {
+    public ResponseEntity<?> WebClientTest(@RequestBody NewChattingRoomInfo newChattingRoomInfo) throws ParseException {
         log.info("member server get id from chat server!" + newChattingRoomInfo);
-        chattingService.addChattingRoom(newChattingRoomInfo);
-//        chattingService.testPrint();
-        return new ResponseEntity<>(newChattingRoomInfo, null, HttpStatus.NOT_FOUND);
+        try {
+            chattingService.addChattingRoom(newChattingRoomInfo);
+            return new ResponseEntity<>(true, null, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
 }
