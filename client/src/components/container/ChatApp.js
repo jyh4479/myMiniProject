@@ -69,9 +69,21 @@ const ChatApp = () => {
     // }
 
     const makeListView = dataList => {
-        return dataList.map(item => (
-            <button key={item.id}
-                    onClick={() => newWindow(`http://localhost:5000/chatroom/${item.id}`, memberId)}> {item.id} </button>))
+        const view = []
+
+        dataList.forEach(item => {
+            view.push(
+                <div>
+                    <button className={'chattingButtonList'} key={item.id}
+                            onClick={() => newWindow(`http://localhost:5000/chatroom/${item.id}`, memberId)}> {item.id} </button>
+                </div>
+            )
+        })
+
+        return view
+        // return dataList.map(item => (
+        //     <button key={item.id}
+        //             onClick={() => newWindow(`http://localhost:5000/chatroom/${item.id}`, memberId)}> {item.id} </button>))
     }
 
     const newWindow = (url, user) => {
@@ -84,9 +96,8 @@ const ChatApp = () => {
         <>
             {/*{user !== null ? (*/}
 
-
             {roomList !== null ? (
-                <div> {makeListView(roomList)} </div>
+                <div className={'chattingListContainer'}> {makeListView(roomList)} </div>
             ) : (
                 <div> List가 없습니다. </div>
             )}

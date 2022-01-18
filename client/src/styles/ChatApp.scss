@@ -1,0 +1,14 @@
+.chattingListContainer {
+  border: solid 1px black;
+}
+
+.chattingButtonList {
+  width: 100vw;
+  height: 50px;
+  background: none;
+  border: none;
+
+  &:hover {
+    background: lightgrey;
+  }
+}
