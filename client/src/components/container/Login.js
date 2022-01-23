@@ -1,7 +1,10 @@
 import React, {useState} from 'react'
-import {BasicButton, BasicText, ComponentBox, Row} from '../presentational'
+import {BasicText, Row} from '../presentational'
 import {authServiceApi} from '../../utils'
 import '../../styles/Login.scss'
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import {Button, Form, FormGroup} from 'react-bootstrap'
 
 const Login = props => {
 
@@ -39,21 +42,30 @@ const Login = props => {
         <>
 
             <Row>
-                <ComponentBox width={400} height={400}>
+                {/*<ComponentBox width={400} height={400}>*/}
+                <Form className={'mb-3'}>
 
                     <BasicText type={'title'} message={'Welcome PangPang Study Planner!'}/>
-                    <Row><input className={'loginInput'} placeholder={'ID'} ref={getInputId}/></Row>
-                    <Row><input className={'loginInput'} placeholder={'PASSWORD'} type={'password'}
-                                ref={getInputPassword}/></Row>
+
+                    <FormGroup>
+                        <label>ID</label>
+                        <input className={'form-control'} placeholder={'ID'} ref={getInputId}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <label>Password</label>
+                        <input className={'form-control'} placeholder={'Password'} type={'password'}
+                               ref={getInputPassword}/>
+                    </FormGroup>
+
                     <Row>
-                        <BasicButton type={'login'} message={'로그인'} onClick={signIn}/>
-                        <BasicButton type={'login'} message={'회원가입'} onClick={signUp}/>
+                        <Button onClick={signIn}>로그인</Button>
+                        <Button onClick={signUp}>회원가입</Button>
                     </Row>
 
                     <Row className={'error'} visible={memberCheck} marginTop={15}><BasicText type={'content'}
                                                                                              message={'아이디와 비밀번호를 확인해주세요.'}/></Row>
-
-                </ComponentBox>
+                </Form>
+                {/*</ComponentBox>*/}
             </Row>
         </>
     )
