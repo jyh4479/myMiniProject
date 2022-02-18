@@ -19,7 +19,6 @@ public class ChattingRoomController {
 
     private final ChattingRoomService chattingRoomService;
 
-
 //    @PostMapping(value = "/test")
 //    public void createChattingRoom(@RequestBody NewChattingRoomInfo newChattingRoomInfo) {
 //        try {

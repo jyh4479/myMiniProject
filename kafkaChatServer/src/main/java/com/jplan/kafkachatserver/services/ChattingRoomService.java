@@ -19,10 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChattingRoomService {
 
-    private WebClient webClient = WebClient.builder()
+    private final WebClient webClient = WebClient.builder()
             .baseUrl("http://localhost:8010/jplan/memberservice")
             .build();
 
+    // final 안붙이니까 bean에서 터짐 왜?
     private final ChattingRoomRepository chattingRoomRepository;
 //    private EntityManager em; --> 동시성때문에 사용하지 않는 것을 권고
 
